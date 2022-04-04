@@ -32,7 +32,7 @@ function copyInstance(inst)
 function cutInstance(inst)
 {
 	copyInstance(inst);
-	removeInstance(inst, false);
+	removeInstance(inst, true);
 	selectInstance(noone);
 }
 

@@ -1,6 +1,20 @@
 function removeInstance(inst, destroy)
 {
 	var instOwner = inst.owner;
+	if (inst.object_index == objBlock)
+	{
+		for(var i = 0; i < inst.width; i++)
+		{
+			for(var j = 0; j < inst.height; j++)
+			{
+				var childInst = inst.children[# i, j];
+				if (childInst != noone)
+				{
+					removeInstance(childInst, true);
+				}
+			}
+		}
+	}
 	for(var i = 0; i < instOwner.width; i++)
 	{
 		for(var j = 0; j < instOwner.height; j++)
@@ -20,7 +34,7 @@ function removeInstance(inst, destroy)
 				exit;
 			}
 		}
-	}	
+	}
 }
 
 function editBlock(inst)
