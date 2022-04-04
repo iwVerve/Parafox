@@ -29,7 +29,7 @@ serialize = function(indent, xx, yy)
 	str += serializeSelf(indent, xx, yy);
 	str += serializeChildren(indent);
 	str += serializeButtonBelow(placedOn, indent, xx, yy);
-	str = remove_trailing_newlines(str);
+	str = removeTrailingNewlines(str);
 	return str;
 }
 
@@ -87,7 +87,7 @@ parse = function(array)
 
 parseSelf = function(str)
 {
-	var args = string_split(str, " ");
+	var args = stringSplit(str, " ");
 	
 	if (real(args[1]) != -1)
 	{
@@ -124,12 +124,12 @@ parseSelf = function(str)
 
 parseChildren = function(array)
 {
-	var indent = count_tabs(array[0]);
+	var indent = countLeadingTabs(array[0]);
 	for(var i = 1; i < array_length(array); i++)
 	{
-		if (count_tabs(array[i]) == indent + 1)
+		if (countLeadingTabs(array[i]) == indent + 1)
 		{
-			var type = remove_leading_tabs(string_split(array[i], " ")[0]);
+			var type = removeLeadingTabs(stringSplit(array[i], " ")[0]);
 			switch(type)
 			{
 				case "Block":
@@ -137,7 +137,7 @@ parseChildren = function(array)
 					block.owner = id;
 					
 					var index = i + 1;
-					while(index < array_length(array) && count_tabs(array[index]) > indent + 1)
+					while(index < array_length(array) && countLeadingTabs(array[index]) > indent + 1)
 					{
 						index++;
 					}
@@ -179,7 +179,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.index = max(floor(get_integer("Enter new index", "")), 0);
+			inst.index = max(floor(defineReal(get_integer("Enter new index", ""))), 0);
 		}
 		tooltip = "Index of this block. Used by References."
 	}
@@ -192,7 +192,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			var w = clamp(floor(get_integer("Enter new width", "")), 1, 99);
+			var w = clamp(floor(defineReal(get_integer("Enter new width", ""))), 1, 99);
 			resizeBlock(inst, w, inst.height);
 		}
 		tooltip = "(+/-)";
@@ -206,7 +206,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			var h = clamp(floor(get_integer("Enter new height", "")), 1, 99);
+			var h = clamp(floor(defineReal(get_integer("Enter new height", ""))), 1, 99);
 			resizeBlock(inst, inst.width, h);
 		}
 		tooltip = "(+/-)";
@@ -220,7 +220,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.hue = clamp(get_integer("Enter new hue", ""), 0, 1);
+			inst.hue = clamp(defineReal(get_integer("Enter new hue", "")), 0, 1);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -232,7 +232,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.sat = clamp(get_integer("Enter new saturation", ""), 0, 1);
+			inst.sat = clamp(defineReal(get_integer("Enter new saturation", "")), 0, 1);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -244,7 +244,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.val = clamp(get_integer("Enter new value", ""), 0, 1);
+			inst.val = clamp(defineReal(get_integer("Enter new value", "")), 0, 1);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -256,7 +256,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.zoomFactor = clamp(get_integer("Enter new zoom factor", ""), 0.1, 10);
+			inst.zoomFactor = clamp(defineReal(get_integer("Enter new zoom factor", "")), 0.1, 10);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -304,7 +304,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.playerOrder = clamp(floor(get_integer("Enter new player order", "")), 0, 50);
+			inst.playerOrder = clamp(floor(defineReal(get_integer("Enter new player order", ""))), 0, 50);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -341,7 +341,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.playerOrder = max(floor(get_integer("Enter new special effect", "")), 0);
+			inst.playerOrder = max(floor(defineReal(get_integer("Enter new special effect", ""))), 0);
 		}
 		tooltip = "Magic number used to flag blocks in various situations.";
 	}
@@ -366,48 +366,48 @@ createProperties = function()
 			}
 		}
 	}
-	focusProperties(id);
+	showPropertiesOf(id);
 }
 
-draw = function(x1, y1, x2, y2, level)
+draw = function(rect, level)
 {
 	if (flipH)
 	{
-		var temp = x1;
-		x1 = x2;
-		x2 = temp;
+		var temp = rect.x1;
+		rect.x1 = rect.x2;
+		rect.x2 = temp;
 	}
 	
 	if (!fillWithWalls)
 	{
-		draw_set_color(make_color_pat(hue, sat, val/2));
+		draw_set_color(makeColorPat(hue, sat, val/2));
 	}
 	else
 	{
-		draw_set_color(make_color_pat(hue, sat, val));
+		draw_set_color(makeColorPat(hue, sat, val));
 	}
-	draw_rectangle(x1, y1, x2, y2, false);
+	drawRect(rect, false);
 	
 	draw_set_color(c_black);
 	if (!fillWithWalls)
 	{
 		for(var i = 0; i <= width; i++)
 		{
-			var xx = lerp(x1, x2, i/width);
-			draw_line_fixed(xx, y1, xx, y2);
+			var xx = lerp(rect.x1, rect.x2, i/width);
+			drawLineFixed(xx, rect.y1, xx, rect.y2);
 		}
 		for(var i = 0; i <= height; i++)
 		{
-			var yy = lerp(y1, y2, i/height);
-			draw_line_fixed(x1, yy, x2, yy);
+			var yy = lerp(rect.y1, rect.y2, i/height);
+			drawLineFixed(rect.x1, yy, rect.x2, yy);
 		}
 	}
 	else
 	{
-		draw_rectangle(x1+1, y1+1, x2-1, y2-1, true);
+		drawRect(rect, true);
 	}
 	
-	if (!fillWithWalls && (level < global.depthLimit) && (min(abs(x2 - x1), abs(y2 - y1)) > global.sizeLimit))
+	if (!fillWithWalls && (level < global.depthLimit) && (min(abs(rect.x2 - rect.x1), abs(rect.y2 - rect.y1)) > global.sizeLimit))
 	{
 		for(var i = 0; i < width; i++)
 		{
@@ -416,11 +416,8 @@ draw = function(x1, y1, x2, y2, level)
 				var inst = children[# i, height - j - 1];
 				if (!is_undefined(inst) && instance_exists(inst))
 				{
-					var xx1 = lerp(x1, x2, i/width);
-					var xx2 = lerp(x1, x2, (i+1)/width);
-					var yy1 = lerp(y1, y2, j/height);
-					var yy2 = lerp(y1, y2, (j+1)/height);
-					inst.draw(xx1, yy1, xx2, yy2, level+1);
+					var newRect = new Rect(lerp(rect.x1, rect.x2, i/width), lerp(rect.y1, rect.y2, j/height), lerp(rect.x1, rect.x2, (i+1)/width), lerp(rect.y1, rect.y2, (j+1)/height));
+					inst.draw(newRect, level+1);
 				}
 			}
 		}
@@ -428,12 +425,12 @@ draw = function(x1, y1, x2, y2, level)
 	
 	if (player)
 	{
-		draw_sprite_pos(sprDecoration, 3, x1, y1, x2, y1, x2, y2, x1, y2, 0.75);
+		drawSpriteRect(sprDecoration, 3, rect, 0.75);
 	}
 	else if (possessable)
 	{
-		draw_sprite_pos(sprDecoration, 2, x1, y1, x2, y1, x2, y2, x1, y2, 0.75);
+		drawSpriteRect(sprDecoration, 2, rect, 0.75);
 	}
 	
-	highlightIfSelected(x1, y1, x2, y2);
+	highlightIfSelected(rect);
 }

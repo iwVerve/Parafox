@@ -1,4 +1,4 @@
-function string_split(str, char)
+function stringSplit(str, char)
 {
 	array = array_create(0);
 	while(string_pos(char, str) != 0)
@@ -7,12 +7,12 @@ function string_split(str, char)
 		array_push(array, string_copy(str, 1, index - 1));
 		str = string_delete(str, 1, index);
 	}
-	array_push(array, remove_trailing_newlines(str));
+	array_push(array, removeTrailingNewlines(str));
 	
 	return array;
 }
 
-function count_tabs(str)
+function countLeadingTabs(str)
 {
 	var count = 1;
 	while(string_char_at(str, count) == "\t")
@@ -22,7 +22,7 @@ function count_tabs(str)
 	return count - 1;
 }
 
-function remove_leading_tabs(str)
+function removeLeadingTabs(str)
 {
 	while(string_char_at(str, 1) == "\t")
 	{
@@ -31,7 +31,7 @@ function remove_leading_tabs(str)
 	return str;
 }
 
-function remove_trailing_newlines(str)
+function removeTrailingNewlines(str)
 {
 	var c = string_char_at(str, string_length(str));
 	while(c == "\n" || c == "\r")
@@ -42,19 +42,19 @@ function remove_trailing_newlines(str)
 	return str;
 }
 
-function make_color_pat(hue, sat, val)
+function makeColorPat(hue, sat, val)
 {
 	return make_color_hsv(255 * hue, 255 * sat, 255 * val);
 }
 
-function draw_line_fixed(x1, y1, x2, y2)
+function drawLineFixed(x1, y1, x2, y2)
 {
 	draw_point(x1, y1);
 	draw_line(x1, y1, x2, y2);
 	draw_point(x2, y2);
 }
 
-function destroy_instances()
+function destroyLevelInstances()
 {
 	with(objBlock) {instance_destroy();}
 	with(objRef) {instance_destroy();}
@@ -110,4 +110,36 @@ function getAttemptOrderString(attemptOrder, sep)
 		}
 	}
 	return str;
+}
+
+function defineReal(num)
+{
+	if (is_undefined(num))
+	{
+		return 0;
+	}
+	return num;
+}
+
+function drawRect(rect, outline)
+{
+	draw_rectangle(rect.x1, rect.y1, rect.x2, rect.y2, outline);
+}
+
+function drawSpriteRect(sprite, subimg, rect, alpha)
+{
+	draw_sprite_pos(sprite, subimg, rect.x1, rect.y1, rect.x2, rect.y1, rect.x2, rect.y2, rect.x1, rect.y2, alpha);
+}
+
+function Rect(_x1, _y1, _x2, _y2) constructor
+{
+	x1 = _x1;
+	y1 = _y1;
+	x2 = _x2;
+	y2 = _y2;
+	
+	clone = function()
+	{
+		return new Rect(x1, y1, x2, y2);
+	}
 }

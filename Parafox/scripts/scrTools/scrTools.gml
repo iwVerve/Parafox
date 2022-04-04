@@ -1,31 +1,31 @@
-function resolveTool(tool, x1, y1, x2, y2)
+function resolveTool(tool, rect)
 {
-	resolveGlobal(x1, y1, x2, y2);
+	resolveGlobal(rect);
 	switch(tool)
 	{
 		case TOOL.SELECT:
-			selectResolveKeyboard(x1, y1, x2, y2);
-			selectResolveMouse(x1, y1, x2, y2);
+			selectResolveKeyboard(rect);
+			selectResolveMouse(rect);
 			break;
 		case TOOL.PLACEBLOCK:
-			placeBlockResolveMouse(x1, y1, x2, y2);
+			placeBlockResolveMouse(rect);
 			break;
 		case TOOL.PLACEREF:
-			placeRefResolveMouse(x1, y1, x2, y2);
+			placeRefResolveMouse(rect);
 			break;
 		case TOOL.PLACEFLOOR:
-			placeFloorResolveMouse(x1, y1, x2, y2);
+			placeFloorResolveMouse(rect);
 			break;
 		case TOOL.LINKREF:
-			linkRefResolveMouse(x1, y1, x2, y2);
+			linkRefResolveMouse(rect);
 			break;
 		case TOOL.PASTE:
-			pasteResolveMouse(x1, y1, x2, y2);
+			pasteResolveMouse(rect);
 			break;
 	}
 }
 
-function resolveGlobal(x1, y1, x2, y2)
+function resolveGlobal(rect)
 {
 	if (keyboard_check_pressed(192)) //Tilde
 	{
@@ -47,8 +47,8 @@ function resolveGlobal(x1, y1, x2, y2)
 	
 	if (keyboard_check(vk_control))
 	{
-		var xSel = getCoord(mouse_x, x1, x2, editing.width);
-		var ySel = getCoord(mouse_y, y1, y2, editing.height);
+		var xSel = getCoord(mouse_x, rect.x1, rect.x2, editing.width);
+		var ySel = getCoord(mouse_y, rect.y1, rect.y2, editing.height);
 		
 		checkClipboardControls(xSel, ySel);
 		

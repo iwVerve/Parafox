@@ -1,12 +1,12 @@
-function placeRefResolveMouse(x1, y1, x2, y2)
+function placeRefResolveMouse(rect)
 {
 	if (!frameDelay && mouse_check_button_pressed(mb_left))
 	{
-		var xSel = getCoord(mouse_x, x1, x2, editing.width);
-		var ySel = getCoord(mouse_y, y1, y2, editing.height);
+		var xSel = getCoord(mouse_x, rect.x1, rect.x2, editing.width);
+		var ySel = getCoord(mouse_y, rect.y1, rect.y2, editing.height);
 		
 		var inst = editing.children[# xSel, ySel];
-		if ((inRange(mouse_x, x1, x2)) && (inRange(mouse_y, y1, y2)))
+		if ((inRange(mouse_x, rect.x1, rect.x2)) && (inRange(mouse_y, rect.y1, rect.y2)))
 		{	
 			if (inst == noone)
 			{

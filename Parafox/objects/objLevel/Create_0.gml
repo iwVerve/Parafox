@@ -78,7 +78,7 @@ serializeHeader = function()
 
 parse = function(str)
 {
-	destroy_instances();
+	destroyLevelInstances();
 	
 	var index = string_pos("#", str);
 	var header = string_copy(str, 1, index - 3);
@@ -90,11 +90,11 @@ parse = function(str)
 
 parseHeader = function(str)
 {
-	var lines = string_split(str, "\n");
+	var lines = stringSplit(str, "\n");
 	for(var i = 0; i < array_length(lines); i++)
 	{
 		var line = lines[i];
-		var args = string_split(line, " ");
+		var args = stringSplit(line, " ");
 		switch(args[0])
 		{
 			case "version":
@@ -105,7 +105,7 @@ parseHeader = function(str)
 				}
 				break;
 			case "attempt_order":
-				var order = string_split(args[1], ",");
+				var order = stringSplit(args[1], ",");
 				ds_list_clear(attemptOrder);
 				if (array_length(order) == 4)
 				{
@@ -155,7 +155,7 @@ parseHeader = function(str)
 
 parseBody = function(str)
 {
-	var lines = string_split(str, "\n");
+	var lines = stringSplit(str, "\n");
 	block = instance_create_layer(0, 0, "Level", objBlock);
 	block.owner = id;
 	block.parse(lines);
@@ -221,7 +221,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.music = max(floor(get_integer("Enter new music index", "")), -1);
+			inst.music = max(floor(defineReal(get_integer("Enter new music index", ""))), -1);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -233,7 +233,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.palette = max(floor(get_integer("Enter new palette index", "")), -1);
+			inst.palette = max(floor(defineReal(get_integer("Enter new palette index", ""))), -1);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -271,5 +271,5 @@ createProperties = function()
 			}
 		}
 	}
-	focusProperties(id);
+	showPropertiesOf(id);
 }

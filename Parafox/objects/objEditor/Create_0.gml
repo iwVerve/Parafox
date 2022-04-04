@@ -23,7 +23,7 @@ createButtons();
 
 step = function()
 {	
-	if (window_get_width() != room_width || window_get_height() != room_height)
+	if ((window_get_width() > 0 && window_get_height() > 0) && (window_get_width() != room_width || window_get_height() != room_height))
 	{
 		room_width = window_get_width();
 		room_height = window_get_height();
@@ -33,14 +33,11 @@ step = function()
 	var w = 0.45 * min(room_width, room_height);
 	var xx = room_width/2;
 	var yy = room_height/2;
-	var x1 = xx - w;
-	var y1 = yy + w;
-	var x2 = xx + w;
-	var y2 = yy - w;
+	var rect = new Rect(xx - w, yy + w, xx + w, yy - w);
 	
-	resolveTool(tool, x1, y1, x2, y2);
+	resolveTool(tool, rect);
 	
-	arrangeProperties();
+	arrangeUIInstances();
 	
 	window_set_caption("Parafox" + ((unsavedChanges) ? "*" : ""));
 	
@@ -54,8 +51,10 @@ draw = function()
 {
 	var w = 0.45 * min(room_width, room_height);
 	var xx = room_width/2;
-	var yy = room_height/2;
-	editing.draw(xx-w, yy-w, xx+w, yy+w, 0);
+	var yy = room_height/2
+	var rect = new Rect(xx - w, yy - w, xx + w, yy + w);
+	
+	editing.draw(rect.clone(), 0);
 	
 	drawGUI();
 }

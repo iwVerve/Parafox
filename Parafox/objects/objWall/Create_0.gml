@@ -27,7 +27,7 @@ serialize = function(indent, xx, yy)
 
 parse = function(str)
 {
-	var args = string_split(str, " ");
+	var args = stringSplit(str, " ");
 	
 	if (real(args[1]) != -1)
 	{
@@ -82,7 +82,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.playerOrder = clamp(floor(get_integer("Enter new player order", "")), 0, 50);
+			inst.playerOrder = clamp(floor(defineReal(get_integer("Enter new player order", ""))), 0, 50);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -106,22 +106,22 @@ createProperties = function()
 			}
 		}
 	}
-	focusProperties(id);
+	showPropertiesOf(id);
 }
 
-draw = function(x1, y1, x2, y2, level)
+draw = function(rect, level)
 {
-	draw_set_color(make_color_pat(owner.hue, owner.sat, owner.val));
-	draw_rectangle(x1, y1, x2, y2, false);
+	draw_set_color(makeColorPat(owner.hue, owner.sat, owner.val));
+	drawRect(rect, false);
 	
 	if (player)
 	{
-		draw_sprite_pos(sprDecoration, 3, x1, y1, x2, y1, x2, y2, x1, y2, 0.75);
+		drawSpriteRect(sprDecoration, 3, rect, 0.75);
 	}
 	else if (possessable)
 	{
-		draw_sprite_pos(sprDecoration, 2, x1, y1, x2, y1, x2, y2, x1, y2, 0.75);
+		drawSpriteRect(sprDecoration, 2, rect, 0.75);
 	}
 	
-	highlightIfSelected(x1, y1, x2, y2);
+	highlightIfSelected(rect);
 }

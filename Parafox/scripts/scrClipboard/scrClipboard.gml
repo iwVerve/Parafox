@@ -40,12 +40,12 @@ function pasteInstance(xx, yy)
 {
 	if (editing.children[# xx, yy] == noone)
 	{
-		switch(string_split(remove_leading_tabs(clipboard), " ")[0])
+		switch(stringSplit(removeLeadingTabs(clipboard), " ")[0])
 		{
 			case "Block":
 				var block = instance_create_layer(0, 0, "Level", objBlock);
 				block.owner = editing;
-				block.parse(string_split(clipboard, "\n"));
+				block.parse(stringSplit(clipboard, "\n"));
 				block.index = findFreeIndex(block);
 				editing.children[# xx, yy] = block;
 				return block;

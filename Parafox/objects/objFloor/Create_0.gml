@@ -24,9 +24,9 @@ serialize = function(indent, xx, yy)
 
 parse = function(str)
 {
-	var args = string_split(str, " ");
+	var args = stringSplit(str, " ");
 	
-	switch(remove_trailing_newlines(args[3]))
+	switch(removeTrailingNewlines(args[3]))
 	{
 		case "Button":
 			type = FLOOR.BUTTON;
@@ -75,24 +75,24 @@ createProperties = function()
 			}
 		}
 	}
-	focusProperties(id);
+	showPropertiesOf(id);
 }
 
-draw = function(x1, y1, x2, y2, level)
+draw = function(rect, level)
 {
 	draw_set_alpha(0.75);
 	draw_set_color(c_white);
 	
 	if (type == FLOOR.BUTTON)
 	{
-		draw_sprite_pos(sprDecoration, 1, x1, y1, x2, y1, x2, y2, x1, y2, 0.75);
+		drawSpriteRect(sprDecoration, 1, rect, 0.75);
 	}
 	else
 	{
-		draw_sprite_pos(sprDecoration, 0, x1, y1, x2, y1, x2, y2, x1, y2, 0.75);
+		drawSpriteRect(sprDecoration, 0, rect, 0.75);
 	}
 	
 	draw_set_alpha(1);
 	
-	highlightIfSelected(x1, y1, x2, y2);
+	highlightIfSelected(rect);
 }

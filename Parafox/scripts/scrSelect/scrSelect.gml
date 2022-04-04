@@ -1,8 +1,5 @@
-function selectResolveKeyboard(x1, y1, x2, y2)
+function selectResolveKeyboard(rect)
 {
-	var xSel = getCoord(mouse_x, x1, x2, editing.width);
-	var ySel = getCoord(mouse_y, y1, y2, editing.height);
-	
 	var xMove = (keyboard_check_pressed(ord("D")) + keyboard_check_pressed(vk_right) - keyboard_check_pressed(ord("A")) - keyboard_check_pressed(vk_left));
 	var yMove = (keyboard_check_pressed(ord("W")) + keyboard_check_pressed(vk_up) - keyboard_check_pressed(ord("S")) - keyboard_check_pressed(vk_down));
 	
@@ -80,26 +77,26 @@ function selectResolveKeyboard(x1, y1, x2, y2)
 	}
 }
 
-function selectResolveMouse(x1, y1, x2, y2)
+function selectResolveMouse(rect)
 {
 	if (!keyboard_check(vk_shift))
 	{
-		selectMouseSelect(x1, y1, x2, y2);
+		selectMouseSelect(rect);
 	}
 	else
 	{
-		selectMouseDraw(x1, y1, x2, y2);
+		selectMouseDraw(rect);
 	}
 }
 
-function selectMouseSelect(x1, y1, x2, y2)
+function selectMouseSelect(rect)
 {
 	if (!frameDelay && mouse_check_button_pressed(mb_left))
 	{
-		if (inRange(mouse_x, x1, x2) && inRange(mouse_y, y1, y2))
+		if (inRange(mouse_x, rect.x1, rect.x2) && inRange(mouse_y, rect.y1, rect.y2))
 		{
-			var xSel = getCoord(mouse_x, x1, x2, editing.width);
-			var ySel = getCoord(mouse_y, y1, y2, editing.height);
+			var xSel = getCoord(mouse_x, rect.x1, rect.x2, editing.width);
+			var ySel = getCoord(mouse_y, rect.y1, rect.y2, editing.height);
 			var inst = editing.children[# xSel, ySel];
 			if (!is_undefined(inst) && instance_exists(inst))
 			{
@@ -111,7 +108,7 @@ function selectMouseSelect(x1, y1, x2, y2)
 					}
 					else if (inst.object_index == objRef)
 					{
-						var block = findIndex(inst.index);
+						var block = findBlockByIndex(inst.index);
 						if (block != noone)
 						{
 							editBlock(block);
@@ -182,7 +179,7 @@ function selectMouseSelect(x1, y1, x2, y2)
 	{
 		if (dragging)
 		{
-			dragInstance(x1, y1, x2, y2);
+			dragInstance(rect);
 		}
 	}
 	else
@@ -191,10 +188,10 @@ function selectMouseSelect(x1, y1, x2, y2)
 	}
 }
 
-function selectMouseDraw(x1, y1, x2, y2)
+function selectMouseDraw(rect)
 {
-	var xSel = getCoord(mouse_x, x1, x2, editing.width);
-	var ySel = getCoord(mouse_y, y1, y2, editing.height);
+	var xSel = getCoord(mouse_x, rect.x1, rect.x2, editing.width);
+	var ySel = getCoord(mouse_y, rect.y1, rect.y2, editing.height);
 	
 	if (mouse_check_button(mb_left))
 	{

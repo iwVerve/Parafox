@@ -9,7 +9,6 @@ infenter = false;
 infenternum = 0;
 infenterid = -1;
 
-
 player = false;
 possessable = false;
 playerOrder = 0;
@@ -54,7 +53,7 @@ serialize = function(indent, xx, yy)
 
 parse = function(str)
 {
-	var args = string_split(str, " ");
+	var args = stringSplit(str, " ");
 	
 	if (real(args[1]) != -1)
 	{
@@ -104,7 +103,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.index = max(floor(get_integer("Enter new index", "")), 0);
+			inst.index = max(floor(defineReal(get_integer("Enter new index", ""))), 0);
 		}
 		rightClick = function(inst)
 		{
@@ -148,7 +147,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.infexitnum = max(floor(get_integer("Enter new infinite exit num.", "")), 0);
+			inst.infexitnum = max(floor(defineReal(get_integer("Enter new infinite exit num.", ""))), 0);
 		}
 		tooltip = "0 = 1 infinity.";
 	}
@@ -174,7 +173,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.infenternum = max(floor(get_integer("Enter new infinite enter num.", "")), 0);
+			inst.infenternum = max(floor(defineReal(get_integer("Enter new infinite enter num.", ""))), 0);
 		}
 		tooltip = "0 = 1 epsilon.";
 	}
@@ -187,7 +186,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.infenterid = max(floor(get_integer("Enter new infinite enter index", "")), -1);
+			inst.infenterid = max(floor(defineReal(get_integer("Enter new infinite enter index", ""))), -1);
 		}
 		tooltip = "Gets entered from an infinite enter, 0 being 1 level of recursion. Exit Block is recommended.";
 	}
@@ -224,7 +223,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.playerOrder = clamp(floor(get_integer("Enter new player order", "")), 0, 50);
+			inst.playerOrder = clamp(floor(defineReal(get_integer("Enter new player order", ""))), 0, 50);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -261,7 +260,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.playerOrder = max(floor(get_integer("Enter new special effect", "")), 0);
+			inst.playerOrder = max(floor(defineReal(get_integer("Enter new special effect", ""))), 0);
 		}
 		tooltip = "Magic number used to flag blocks in various situations.";
 	}
@@ -286,36 +285,39 @@ createProperties = function()
 			}
 		}
 	}
-	focusProperties(id);
+	showPropertiesOf(id);
 }
 
-draw = function(x1, y1, x2, y2, level)
+draw = function(rect, level)
 {
 	if (flipH)
 	{
-		var temp = x1;
-		x1 = x2;
-		x2 = temp;
+		var temp = rect.x1;
+		rect.x1 = rect.x2;
+		rect.x2 = temp;
 	}
 	
-	with(findIndex(index))
+	with(findBlockByIndex(index))
 	{
-		draw(x1, y1, x2, y2, level+1);
+		draw(rect.clone(), level+1);
 	}
 	
-	draw_set_alpha(0.5);
-	draw_set_color(c_white);
-	draw_rectangle(x1, y1, x2, y2, false);
-	draw_set_alpha(1);
+	if (!exitblock)
+	{
+		draw_set_alpha(0.5);
+		draw_set_color(c_white);
+		drawRect(rect, false);
+		draw_set_alpha(1);
+	}
 	
 	if (player)
 	{
-		draw_sprite_pos(sprDecoration, 3, x1, y1, x2, y1, x2, y2, x1, y2, 0.75);
+		drawSpriteRect(sprDecoration, 3, rect, 0.75);
 	}
 	else if (possessable)
 	{
-		draw_sprite_pos(sprDecoration, 2, x1, y1, x2, y1, x2, y2, x1, y2, 0.75);
+		drawSpriteRect(sprDecoration, 2, rect, 0.75);
 	}
 	
-	highlightIfSelected(x1, y1, x2, y2);
+	highlightIfSelected(rect);
 }

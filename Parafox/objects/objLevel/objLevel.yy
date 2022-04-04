@@ -24,8 +24,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Parafox",
-    "path": "Parafox.yyp",
+    "name": "Game",
+    "path": "folders/Game.yy",
   },
   "resourceVersion": "1.0",
   "name": "objLevel",

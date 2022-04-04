@@ -34,7 +34,7 @@ function getCoord(val, a, b, tiles)
 	return clamp(floor(tiles * invlerp(a, b, val)), 0, tiles - 1);
 }
 
-function arrangeProperties()
+function arrangeUIInstances()
 {
 	for(var i = 0; i < instance_number(objProperty); i++)
 	{
@@ -83,12 +83,12 @@ function destroyProperties()
 	}
 }
 
-function focusProperties(inst)
+function showPropertiesOf(inst)
 {
 	objEditor.propertiesOf = inst;
 }
 
-function findIndex(targetIndex)
+function findBlockByIndex(targetIndex)
 {
 	with(objBlock)
 	{
@@ -100,13 +100,13 @@ function findIndex(targetIndex)
 	return noone;
 }
 
-function highlightIfSelected(x1, y1, x2, y2)
+function highlightIfSelected(rect)
 {
 	if (objEditor.selected == id)
 	{
 		draw_set_alpha(0.15 * (1-dcos(objEditor.selectedTimer * 360/60)));
 		draw_set_color(c_white);
-		draw_rectangle(x1, y1, x2, y2, false);
+		drawRect(rect, false);
 		draw_set_alpha(1);
 	}
 }
@@ -223,10 +223,10 @@ function findFreeIndex(inst)
 	return targetIndex;
 }
 
-function dragInstance(x1, y1, x2, y2)
+function dragInstance(rect)
 {
-	var xSel = getCoord(mouse_x, x1, x2, editing.width);
-	var ySel = getCoord(mouse_y, y1, y2, editing.height);
+	var xSel = getCoord(mouse_x, rect.x1, rect.x2, editing.width);
+	var ySel = getCoord(mouse_y, rect.y1, rect.y2, editing.height);
 	if ((xSel != dragX || ySel != dragY) && editing.children[# xSel, ySel] == noone)
 	{
 		editing.children[# xSel, ySel] = editing.children[# dragX, dragY];
