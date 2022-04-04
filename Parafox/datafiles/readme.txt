@@ -4,6 +4,7 @@ A level editor for Patrick's Parabox
 Made by Verve
   (https://twitter.com/IwVerve)
 
+
 --Playing levels--
 See https://www.patricksparabox.com/custom-levels/ to find your custom levels folder.
 On Windows, you might be able to use the path
@@ -12,7 +13,10 @@ and the editor should open that folder by default.
 Once you save your level there and open it in-game, you can press F5 at any time to reload the
 level file. This allows quick testing of changes without having to navigate the game menu.
 
---Instructions--
+
+--Level structure--
+This section explains what each of the basic building blocks does. If you're looking to make a
+specific game object, the next section might be more directly helpful.
 Levels consists of 4 different types of objects.
 
 -Blocks include everything from simple plain boxes to entire rooms. The player is also a Block.
@@ -40,6 +44,24 @@ objects, use Shift + Left mouse to place them.
 -Since the editor doesn't allow stacking objects, if you ever need an object to start over a button,
 you should use the "Placed on" property of that object instead of placing a button.
 
+
+--How to make specific game objects--
+-Player - The player is a Block with "Fill with walls", "Player", and "Possessable" checked.
+-Push box - A simple pushable box is a Block with "Fill with walls" checked. If you need to place
+several, copying and pasting should save you time.
+-Button - Buttons are Floors.
+-Clone - A clone is a Reference without "Exit block" check.
+-Level inside itself - A Reference with "Exit block" checked will act.
+-Infinity block - Simply check "Infinite exit", with "Infinite exit num" setting how many levels
+of infinity. Requires a level to be inside itself, through the use of an Exit block Reference.
+-Epsilon block - For technical reasons, only a Reference can be an epsilon block, even when it
+being a regular Block would make sense. To work around this, place the actual block anywhere in the
+level, check "Float in space", and make a Reference to it with "Exit Block" checked(!). Now, check
+"Infinite enter" and set "Infinite enter index" to not -1. Unfortunately, once multiple epsilons
+get involved, my understanding of the game's rules reaches its limits and so I don't actually have
+a coherent explanation for what purpose the Infinite enter index serves.
+
+
 --Palettes--
 If the level palette is not set to -1, the game will apply a palette based on specific color values:
 0 saturation - color A, usually gray, for root blocks
@@ -49,8 +71,10 @@ If the level palette is not set to -1, the game will apply a palette based on sp
 0.9 hue - color E, usually pink, for player
 0.55 hue - color F, usually teal, for levels that need an additional block color
 
+
 --Shortcomings--
 The editor currently has no undo and group select feature. Maybe one day...
+
 
 --Controls, shortcuts--
 Double click a Block or Reference to start editing it
