@@ -1,0 +1,7 @@
+version 4
+attempt_order push,enter,eat,possess
+custom_level_music -1
+custom_level_palette -1
+#
+Block -1 -1 0 5 5 0.60 0.80 1 1 0 0 0 0 0 0 0
+	Block 2 2 1 5 5 0.90 1 0.70 1 1 1 1 0 0 0 0
