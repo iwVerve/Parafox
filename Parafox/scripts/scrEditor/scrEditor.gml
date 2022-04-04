@@ -404,3 +404,30 @@ function createButtons()
 		tooltip = "(Ctrl+V)";
 	}
 }
+
+function populateAttemptOrderFromString(list, str)
+{
+	var order = stringSplit(str, ",");
+	ds_list_clear(list);
+	if (array_length(order) == 4)
+	{
+		for(var i = 0; i < 4; i++)
+		{
+			switch(order[i])
+			{
+				case "push":
+					ds_list_add(list, ATTEMPTORDER.PUSH);
+					break;
+				case "enter":
+					ds_list_add(list, ATTEMPTORDER.ENTER);
+					break;
+				case "eat":
+					ds_list_add(list, ATTEMPTORDER.EAT);
+					break;
+				case "possess":
+					ds_list_add(list, ATTEMPTORDER.POSSESS);
+					break;
+			}
+		}
+	}
+}

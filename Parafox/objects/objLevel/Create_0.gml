@@ -94,6 +94,7 @@ parseHeader = function(str)
 	for(var i = 0; i < array_length(lines); i++)
 	{
 		var line = lines[i];
+		show_debug_message(line);
 		var args = stringSplit(line, " ");
 		switch(args[0])
 		{
@@ -105,29 +106,7 @@ parseHeader = function(str)
 				}
 				break;
 			case "attempt_order":
-				var order = stringSplit(args[1], ",");
-				ds_list_clear(attemptOrder);
-				if (array_length(order) == 4)
-				{
-					for(var i = 0; i < 4; i++)
-					{
-						switch(order[i])
-						{
-							case "push":
-								ds_list_add(attemptOrder, ATTEMPTORDER.PUSH);
-								break;
-							case "enter":
-								ds_list_add(attemptOrder, ATTEMPTORDER.ENTER);
-								break;
-							case "eat":
-								ds_list_add(attemptOrder, ATTEMPTORDER.EAT);
-								break;
-							case "possess":
-								ds_list_add(attemptOrder, ATTEMPTORDER.POSSESS);
-								break;
-						}
-					}
-				}
+				populateAttemptOrderFromString(attemptOrder, args[1]);
 				break;
 			case "shed":
 				shed = true;
