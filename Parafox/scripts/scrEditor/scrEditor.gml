@@ -127,50 +127,65 @@ function highlightIfSelected(rect)
 
 function incrementBlockWidth(inst)
 {
-	inst.width += 1;
-	ds_grid_resize(inst.children, inst.width, inst.height);
-		
-	for(var i = 0; i < inst.height; i++)
+	if (inst.width < global.maxBlockSize)
 	{
-		inst.children[# inst.width - 1, i] = noone;
+		inst.width += 1;
+		ds_grid_resize(inst.children, inst.width, inst.height);
+		
+		for(var i = 0; i < inst.height; i++)
+		{
+			inst.children[# inst.width - 1, i] = noone;
+		}
+		unsavedChanges = true;
 	}
-	unsavedChanges = true;
 }
 
 function incrementBlockHeight(inst)
 {
-	inst.height += 1;
-	ds_grid_resize(inst.children, inst.width, inst.height);
-		
-	for(var i = 0; i < inst.width; i++)
+	if (inst.height < global.maxBlockSize)
 	{
-		inst.children[# i, inst.height - 1] = noone;
+		inst.height += 1;
+		ds_grid_resize(inst.children, inst.width, inst.height);
+		
+		for(var i = 0; i < inst.width; i++)
+		{
+			inst.children[# i, inst.height - 1] = noone;
+		}
+		unsavedChanges = true;
 	}
-	unsavedChanges = true;
 }
 
 function decrementBlockWidth(inst)
 {
-	if (inst.width > 1)
+	if (inst.width > global.minBlockSize)
 	{
-		inst.width -= 1;
-		ds_grid_resize(inst.children, inst.width, inst.height);
+		if (inst.width > 1)
+		{
+			inst.width -= 1;
+			ds_grid_resize(inst.children, inst.width, inst.height);
+		}
+		unsavedChanges = true;
 	}
-	unsavedChanges = true;
 }
 
 function decrementBlockHeight(inst)
 {
-	if (inst.height > 1)
+	if (inst.height > global.minBlockSize)
 	{
-		inst.height -= 1;
-		ds_grid_resize(inst.children, inst.width, inst.height);
+		if (inst.height > 1)
+		{
+			inst.height -= 1;
+			ds_grid_resize(inst.children, inst.width, inst.height);
+		}
+		unsavedChanges = true;
 	}
-	unsavedChanges = true;
 }
 
 function resizeBlock(block, newWidth, newHeight)
 {
+	newWidth = clamp(newWidth, global.minBlockSize, global.maxBlockSize);
+	newHeight = clamp(newHeight, global.minBlockSize, global.maxBlockSize);
+	
 	while(block.width < newWidth)
 	{
 		incrementBlockWidth(block);

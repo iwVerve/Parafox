@@ -192,7 +192,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			var w = clamp(floor(defineReal(get_integer("Enter new width", ""))), 1, 99);
+			var w = floor(defineReal(get_integer("Enter new width", "")));
 			resizeBlock(inst, w, inst.height);
 		}
 		tooltip = "(+/-)";
@@ -206,7 +206,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			var h = clamp(floor(defineReal(get_integer("Enter new height", ""))), 1, 99);
+			var h = floor(defineReal(get_integer("Enter new height", "")));
 			resizeBlock(inst, inst.width, h);
 		}
 		tooltip = "(+/-)";
