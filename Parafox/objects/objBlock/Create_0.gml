@@ -89,8 +89,10 @@ parseSelf = function(str)
 {
 	var args = stringSplit(str, " ");
 	
-	if ((real(args[1]) != -1) || (countLeadingTabs(str) > 0))
+	show_debug_message(countLeadingTabs(str));
+	if ((real(args[1]) != -1) && (countLeadingTabs(str) > 0))
 	{
+		show_debug_message("not root");
 		var xx = real(args[1]);
 		var yy = real(args[2]);
 		var inst = owner.children[# xx, yy];
@@ -99,6 +101,10 @@ parseSelf = function(str)
 			placedOn = inst.type;
 		}
 		owner.children[# xx, yy] = id;
+	}
+	else
+	{
+		show_debug_message("root");	
 	}
 	
 	index = real(args[3]);
