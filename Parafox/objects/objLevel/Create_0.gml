@@ -94,7 +94,6 @@ parseHeader = function(str)
 	for(var i = 0; i < array_length(lines); i++)
 	{
 		var line = lines[i];
-		show_debug_message(line);
 		var args = stringSplit(line, " ");
 		switch(args[0])
 		{
