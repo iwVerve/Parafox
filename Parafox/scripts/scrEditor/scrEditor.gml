@@ -372,6 +372,19 @@ function createButtons()
 	}
 	with(instance_create_layer(0, 0, "UI", objButton))
 	{
+		name = "Draw walls";
+		click = function()
+		{
+			with(objEditor)
+			{
+				tool = TOOL.DRAWWALLS;
+				frameDelay = true;
+			}
+		}
+		tooltip = "(Shift + Click)";
+	}
+	with(instance_create_layer(0, 0, "UI", objButton))
+	{
 		name = "Delete";
 		click = function()
 		{

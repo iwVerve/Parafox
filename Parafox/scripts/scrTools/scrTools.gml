@@ -22,6 +22,9 @@ function resolveTool(tool, rect)
 		case TOOL.PASTE:
 			pasteResolveMouse(rect);
 			break;
+		case TOOL.DRAWWALLS:
+			drawWallsResolveMouse(rect);
+			break;
 	}
 }
 
@@ -79,6 +82,8 @@ function getToolText(tool)
 			return "Link Reference to Block";
 		case TOOL.PASTE:
 			return "Paste object";
+		case TOOL.DRAWWALLS:
+			return "Draw walls/Cancel";
 		default:
 			return "";
 	}
