@@ -35,6 +35,13 @@ step = function()
 	var yy = room_height/2;
 	var rect = new Rect(xx - w, yy + w, xx + w, yy - w);
 	
+	if (editing.flipH)
+	{
+		var temp = rect.x1;
+		rect.x1 = rect.x2;
+		rect.x2 = temp;
+	}
+	
 	resolveTool(tool, rect);
 	
 	arrangeUIInstances();

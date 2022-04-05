@@ -256,7 +256,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.zoomFactor = clamp(defineReal(get_integer("Enter new zoom factor", "")), 0.1, 10);
+			inst.zoomFactor = clamp(defineReal(get_integer("Enter new zoom factor", "")), global.minZoomFactor, global.maxZoomFactor);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -304,7 +304,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.playerOrder = clamp(floor(defineReal(get_integer("Enter new player order", ""))), 0, 50);
+			inst.playerOrder = clamp(floor(defineReal(get_integer("Enter new player order", ""))), 0, global.maxPlayerOrder);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
