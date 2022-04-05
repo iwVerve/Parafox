@@ -112,11 +112,11 @@ function getAttemptOrderString(attemptOrder, sep)
 	return str;
 }
 
-function defineReal(num)
+function defineReal(num, def = 0)
 {
 	if (is_undefined(num))
 	{
-		return 0;
+		return def;
 	}
 	return num;
 }

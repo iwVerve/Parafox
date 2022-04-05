@@ -188,7 +188,7 @@ createProperties = function()
 		{
 			inst.infenterid = max(floor(defineReal(get_integer("Enter new infinite enter index", ""))), -1);
 		}
-		tooltip = "Gets entered from an infinite enter, 0 being 1 level of recursion. Exit Block is recommended.";
+		tooltip = "This epsilon block will get entered when performing an infinite enter in a block with this index.";
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
 	{
