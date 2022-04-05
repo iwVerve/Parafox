@@ -200,7 +200,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.music = max(floor(defineReal(get_integer("Enter new music index", ""))), -1);
+			inst.music = max(floor(defineReal(get_integer("Enter new music index", ""), inst.music)), -1);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -212,7 +212,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.palette = max(floor(defineReal(get_integer("Enter new palette index", ""))), -1);
+			inst.palette = max(floor(defineReal(get_integer("Enter new palette index", ""), inst.palette)), -1);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))

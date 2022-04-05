@@ -179,7 +179,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.index = max(floor(defineReal(get_integer("Enter new index", ""))), 0);
+			inst.index = max(floor(defineReal(get_integer("Enter new index", ""), inst.index)), 0);
 		}
 		tooltip = "Index of this block. Used by References."
 	}
@@ -192,7 +192,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			var w = floor(defineReal(get_integer("Enter new width", "")));
+			var w = floor(defineReal(get_integer("Enter new width", ""), inst.width));
 			resizeBlock(inst, w, inst.height);
 		}
 		tooltip = "(+/-)";
@@ -206,7 +206,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			var h = floor(defineReal(get_integer("Enter new height", "")));
+			var h = floor(defineReal(get_integer("Enter new height", ""), inst.height));
 			resizeBlock(inst, inst.width, h);
 		}
 		tooltip = "(+/-)";
@@ -220,7 +220,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.hue = clamp(defineReal(get_integer("Enter new hue", "")), 0, 1);
+			inst.hue = clamp(defineReal(get_integer("Enter new hue", ""), inst.hue), 0, 1);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -232,7 +232,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.sat = clamp(defineReal(get_integer("Enter new saturation", "")), 0, 1);
+			inst.sat = clamp(defineReal(get_integer("Enter new saturation", ""), inst.sat), 0, 1);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -244,7 +244,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.val = clamp(defineReal(get_integer("Enter new value", "")), 0, 1);
+			inst.val = clamp(defineReal(get_integer("Enter new value", ""), inst.val), 0, 1);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -256,7 +256,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.zoomFactor = clamp(defineReal(get_integer("Enter new zoom factor", "")), global.minZoomFactor, global.maxZoomFactor);
+			inst.zoomFactor = clamp(defineReal(get_integer("Enter new zoom factor", ""), inst.zoomFactor), global.minZoomFactor, global.maxZoomFactor);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -304,7 +304,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.playerOrder = clamp(floor(defineReal(get_integer("Enter new player order", ""))), 0, global.maxPlayerOrder);
+			inst.playerOrder = clamp(floor(defineReal(get_integer("Enter new player order", ""), inst.playerOrder)), 0, global.maxPlayerOrder);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
@@ -341,7 +341,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.playerOrder = max(floor(defineReal(get_integer("Enter new special effect", ""))), 0);
+			inst.specialEffect = max(floor(defineReal(get_integer("Enter new special effect", ""), inst.specialEffect)), 0);
 		}
 		tooltip = "Magic number used to flag blocks in various situations.";
 	}

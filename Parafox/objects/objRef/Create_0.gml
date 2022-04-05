@@ -103,7 +103,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.index = max(floor(defineReal(get_integer("Enter new index", ""))), 0);
+			inst.index = max(floor(defineReal(get_integer("Enter new index", ""), inst.index)), 0);
 		}
 		rightClick = function(inst)
 		{
@@ -147,7 +147,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.infexitnum = max(floor(defineReal(get_integer("Enter new infinite exit num.", ""))), 0);
+			inst.infexitnum = max(floor(defineReal(get_integer("Enter new infinite exit num.", ""), inst.infexitnum)), 0);
 		}
 		tooltip = "0 = 1 infinity.";
 	}
@@ -173,7 +173,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.infenternum = max(floor(defineReal(get_integer("Enter new infinite enter num.", ""))), 0);
+			inst.infenternum = max(floor(defineReal(get_integer("Enter new infinite enter num.", ""), inst.infenternum)), 0);
 		}
 		tooltip = "0 = 1 epsilon.";
 	}
@@ -186,7 +186,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.infenterid = max(floor(defineReal(get_integer("Enter new infinite enter index", ""))), -1);
+			inst.infenterid = max(floor(defineReal(get_integer("Enter new infinite enter index", ""), inst.infenterid)), -1);
 		}
 		tooltip = "This epsilon block will get entered when performing an infinite enter in a block with this index.";
 	}
@@ -260,7 +260,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.playerOrder = max(floor(defineReal(get_integer("Enter new special effect", ""))), 0);
+			inst.specialEffect = max(floor(defineReal(get_integer("Enter new special effect", ""), inst.specialEffect)), 0);
 		}
 		tooltip = "Magic number used to flag blocks in various situations.";
 	}

@@ -82,7 +82,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.playerOrder = clamp(floor(defineReal(get_integer("Enter new player order", ""))), 0, global.maxPlayerOrder);
+			inst.playerOrder = clamp(floor(defineReal(get_integer("Enter new player order", ""), inst.playerOrder)), 0, global.maxPlayerOrder);
 		}
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
