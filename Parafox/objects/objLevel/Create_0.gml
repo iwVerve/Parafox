@@ -99,7 +99,7 @@ parseHeader = function(str)
 		{
 			case "version":
 				if (args[1] != "4")
-				{
+				{	
 					show_message("incompatible file format");
 					game_restart();
 				}

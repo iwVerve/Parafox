@@ -89,7 +89,7 @@ parseSelf = function(str)
 {
 	var args = stringSplit(str, " ");
 	
-	if (real(args[1]) != -1)
+	if ((real(args[1]) != -1) || (countLeadingTabs(str) > 0))
 	{
 		var xx = real(args[1]);
 		var yy = real(args[2]);
