@@ -1,4 +1,4 @@
---Parafox-- (1.0)
+--Parafox-- (1.1.1)
 A level editor for Patrick's Parabox
   (https://store.steampowered.com/app/1260520/Patricks_Parabox/)
 Made by Verve
@@ -29,13 +29,8 @@ without References.
 -References are copies of specific Blocks. Blocks and References are connected by their index value.
 -The "Exit Block" property allows the player to leave the referenced Block, and exit wherever the
 Reference is. This is needed to allow exiting a Block placed in itself, instead of only entering.
--Infinite exit and especially enter is frankly too messy for me to try and explain in writing. Check
-the included example levels "iiexit_intro" and "infenter_line" for examples. From the custom levels
-page:
-"Making Infinite Enter blocks is kind of a hassle. See the example level. The Inf Enter property
-can only be set on RefBlocks, for format simplicity. So you have to create a Block, set
-floatinspace=true, then make a refblock, with exitblock=true, and put that one in the level where
-you want it."
+-Infinite exit and enter, and their corresponding properties are used to make infinity and epsilon
+levels, and are further explained below.
 
 -Walls are not very interesting. To allow quick placement, instead of being placed like the other
 objects, use Shift + Left mouse to place them.
@@ -46,20 +41,25 @@ you should use the "Placed on" property of that object instead of placing a butt
 
 
 --How to make specific game objects--
+-Wall - Shift + Left click
 -Player - The player is a Block with "Fill with walls", "Player", and "Possessable" checked.
 -Push box - A simple pushable box is a Block with "Fill with walls" checked. If you need to place
 several, copying and pasting should save you time.
 -Button - Buttons are Floors.
 -Clone - A clone is a Reference without "Exit block" check.
--Level inside itself - A Reference with "Exit block" checked will act.
+-Level inside itself - A Reference with "Exit block" checked will allow you to exit the Block it
+references and exit outside of the Reference.
 -Infinity block - Simply check "Infinite exit", with "Infinite exit num" setting how many levels
 of infinity. Requires a level to be inside itself, through the use of an Exit block Reference.
--Epsilon block - For technical reasons, only a Reference can be an epsilon block, even when it
-being a regular Block would make sense. To work around this, place the actual block anywhere in the
-level, check "Float in space", and make a Reference to it with "Exit Block" checked(!). Now, check
-"Infinite enter" and set "Infinite enter index" to not -1. Unfortunately, once multiple epsilons
-get involved, my understanding of the game's rules reaches its limits and so I don't actually have
-a coherent explanation for what purpose the Infinite enter index serves.
+
+
+--Epsilon block--
+Infinite enter blocks are both hard to understand and a hassle to make. For technical reasons, only
+a Reference can be an epsilon block, even when it being a regular Block would make sense. To work
+around this, place the actual block anywhere in the level, check "Float in space", and make a
+Reference to it with "Exit Block" checked.
+Each epsilon block can only be entered from one block - its Infinite enter index. The Infinite
+Enter Number sets the amount of layers (amount of epsilons), 0 being 1 epsilon.
 
 
 --Palettes--
