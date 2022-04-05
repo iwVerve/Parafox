@@ -24,12 +24,12 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"ba48ebf3-68bf-4181-9b98-a09fed795f8e","path":"sprites/sprDecoration/sprDecoration.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"ba48ebf3-68bf-4181-9b98-a09fed795f8e","path":"sprites/sprDecoration/sprDecoration.yy",},"LayerId":{"name":"f5d56d9e-67e4-4fe0-90cf-ea47b0447625","path":"sprites/sprDecoration/sprDecoration.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"sprDecoration","path":"sprites/sprDecoration/sprDecoration.yy",},"resourceVersion":"1.0","name":"ba48ebf3-68bf-4181-9b98-a09fed795f8e","tags":[],"resourceType":"GMSpriteFrame",},
+    {"compositeImage":{"FrameId":{"name":"1aff4d34-1902-4e52-876b-aac0cbb1b6c0","path":"sprites/sprFastTravel/sprFastTravel.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
+        {"FrameId":{"name":"1aff4d34-1902-4e52-876b-aac0cbb1b6c0","path":"sprites/sprFastTravel/sprFastTravel.yy",},"LayerId":{"name":"23feee7c-478b-4a9a-9ea6-07a0e234c724","path":"sprites/sprFastTravel/sprFastTravel.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
+      ],"parent":{"name":"sprFastTravel","path":"sprites/sprFastTravel/sprFastTravel.yy",},"resourceVersion":"1.0","name":"1aff4d34-1902-4e52-876b-aac0cbb1b6c0","tags":[],"resourceType":"GMSpriteFrame",},
   ],
   "sequence": {
-    "spriteId": {"name":"sprDecoration","path":"sprites/sprDecoration/sprDecoration.yy",},
+    "spriteId": {"name":"sprFastTravel","path":"sprites/sprFastTravel/sprFastTravel.yy",},
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 30.0,
@@ -41,7 +41,7 @@
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
       {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
-            {"id":"2e6244dd-8bee-4bcd-93f7-aa5cc74b5ce6","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"ba48ebf3-68bf-4181-9b98-a09fed795f8e","path":"sprites/sprDecoration/sprDecoration.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"c533088b-0e94-4f9d-bcc1-31f9d9c79d72","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"1aff4d34-1902-4e52-876b-aac0cbb1b6c0","path":"sprites/sprFastTravel/sprFastTravel.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
     ],
     "visibleRange": null,
@@ -58,22 +58,22 @@
     "yorigin": 0,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"sprDecoration","path":"sprites/sprDecoration/sprDecoration.yy",},
+    "parent": {"name":"sprFastTravel","path":"sprites/sprFastTravel/sprFastTravel.yy",},
     "resourceVersion": "1.4",
-    "name": "sprDecoration",
+    "name": "sprFastTravel",
     "tags": [],
     "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"f5d56d9e-67e4-4fe0-90cf-ea47b0447625","tags":[],"resourceType":"GMImageLayer",},
+    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"23feee7c-478b-4a9a-9ea6-07a0e234c724","tags":[],"resourceType":"GMImageLayer",},
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Game",
-    "path": "folders/Game.yy",
+    "name": "Sprites",
+    "path": "folders/Sprites.yy",
   },
   "resourceVersion": "1.0",
-  "name": "sprDecoration",
+  "name": "sprFastTravel",
   "tags": [],
   "resourceType": "GMSprite",
 }

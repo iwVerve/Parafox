@@ -460,3 +460,44 @@ function populateAttemptOrderFromString(list, str)
 		}
 	}
 }
+
+function getFloorSpriteFromType(type)
+{
+	switch(type)
+	{
+		case FLOOR.BUTTON:
+			return sprButton;
+		case FLOOR.PLAYERBUTTON:
+			return sprPlayerButton;
+		case FLOOR.FASTTRAVEL:
+			return sprFastTravel;
+	}
+}
+
+function getFloorNameFromType(type)
+{
+	switch(type)
+	{
+		case FLOOR.BUTTON:
+			return "Button";
+		case FLOOR.PLAYERBUTTON:
+			return "PlayerButton";
+		case FLOOR.FASTTRAVEL:
+			return "FastTravel";
+		default:
+			return "";
+	}
+}
+
+function getFloorTypeFromName(name)
+{
+	switch(name)
+	{
+		case "Button":
+			return FLOOR.BUTTON;
+		case "PlayerButton":
+			return FLOOR.PLAYERBUTTON;
+		case "FastTravel":
+			return FLOOR.FASTTRAVEL;
+	}
+}

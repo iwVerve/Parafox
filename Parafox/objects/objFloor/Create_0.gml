@@ -11,13 +11,7 @@ serialize = function(indent, xx, yy)
 	str += " " + string(xx);
 	str += " " + string(yy);
 	
-	var tStr;
-	switch(type)
-	{
-		case FLOOR.BUTTON: tStr = "Button"; break;
-		case FLOOR.PLAYERBUTTON: tStr = "PlayerButton"; break;
-	}
-	str += " " + tStr;
+	str += " " + getFloorNameFromType(type);
 	
 	return str;
 }
@@ -26,16 +20,8 @@ parse = function(str)
 {
 	var args = stringSplit(str, " ");
 	
-	switch(removeTrailingNewlines(args[3]))
-	{
-		case "Button":
-			type = FLOOR.BUTTON;
-			break;
-		case "PlayerButton":
-			type = FLOOR.PLAYERBUTTON;
-			break;
-	}
-	
+	type = getFloorTypeFromName(removeTrailingNewlines(args[3]));
+		
 	if (real(args[1]) != -1)
 	{
 		var xx = real(args[1]);
@@ -61,17 +47,14 @@ createProperties = function()
 		name = "Type";
 		update = function(inst)
 		{
-			value = (inst.type == FLOOR.BUTTON) ? "Button" : "Player Button";
+			value = getFloorNameFromType(inst.type);
 		}
 		click = function(inst)
 		{
-			if (inst.type == FLOOR.BUTTON)
+			inst.type++;
+			if (inst.type >= FLOOR.NUMBER)
 			{
-				inst.type = FLOOR.PLAYERBUTTON;
-			}
-			else
-			{
-				inst.type = FLOOR.BUTTON;
+				inst.type -= FLOOR.NUMBER - 1; //Don't go all the way to None
 			}
 		}
 	}
@@ -83,14 +66,7 @@ draw = function(rect, level)
 	draw_set_alpha(0.75);
 	draw_set_color(c_white);
 	
-	if (type == FLOOR.BUTTON)
-	{
-		drawSpriteRect(sprDecoration, 1, rect, 0.75);
-	}
-	else
-	{
-		drawSpriteRect(sprDecoration, 0, rect, 0.75);
-	}
+	drawSpriteRect(getFloorSpriteFromType(type), 0, rect, 0.75);
 	
 	draw_set_alpha(1);
 	

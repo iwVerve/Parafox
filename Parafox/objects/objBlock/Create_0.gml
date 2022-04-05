@@ -350,19 +350,14 @@ createProperties = function()
 		name = "Placed on";
 		update = function(inst)
 		{
-			switch(inst.placedOn)
-			{
-				case FLOOR.NONE: value = ""; break;
-				case FLOOR.BUTTON: value = "Button"; break;
-				case FLOOR.PLAYERBUTTON: value = "Player Button"; break;
-			}
+			value = getFloorNameFromType(inst.placedOn);
 		}
 		click = function(inst)
 		{
 			inst.placedOn++;
-			if (inst.placedOn > FLOOR.PLAYERBUTTON)
+			if (inst.placedOn >= FLOOR.NUMBER)
 			{
-				inst.placedOn = FLOOR.NONE;
+				inst.placedOn -= FLOOR.NUMBER;
 			}
 		}
 	}
@@ -425,11 +420,11 @@ draw = function(rect, level)
 	
 	if (player)
 	{
-		drawSpriteRect(sprDecoration, 3, rect, 0.75);
+		drawSpriteRect(sprPlayer, 0, rect, 0.75);
 	}
 	else if (possessable)
 	{
-		drawSpriteRect(sprDecoration, 2, rect, 0.75);
+		drawSpriteRect(sprPossessable, 0, rect, 0.75);
 	}
 	
 	highlightIfSelected(rect);
