@@ -103,7 +103,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.index = max(floor(defineReal(get_integer("Enter new index", ""), inst.index)), 0);
+			inst.index = floor(defineReal(get_integer("Enter new index", ""), inst.index));
 		}
 		rightClick = function(inst)
 		{
@@ -186,7 +186,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.infenterid = max(floor(defineReal(get_integer("Enter new infinite enter index", ""), inst.infenterid)), -1);
+			inst.infenterid = floor(defineReal(get_integer("Enter new infinite enter index", ""), inst.infenterid));
 		}
 		tooltip = "This epsilon block will get entered when performing an infinite enter in a block with this index.";
 	}

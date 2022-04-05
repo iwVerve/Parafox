@@ -179,7 +179,7 @@ createProperties = function()
 		}
 		click = function(inst)
 		{
-			inst.index = max(floor(defineReal(get_integer("Enter new index", ""), inst.index)), 0);
+			inst.index = floor(defineReal(get_integer("Enter new index", ""), inst.index));
 		}
 		tooltip = "Index of this block. Used by References."
 	}

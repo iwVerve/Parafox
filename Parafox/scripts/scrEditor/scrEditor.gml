@@ -384,7 +384,7 @@ function createButtons()
 				}
 			}
 		}
-		tooltip = "(Delete)";
+		tooltip = "(Delete/Shift + Right click)";
 	}
 	with(instance_create_layer(0, 0, "UI", objButton))
 	{
