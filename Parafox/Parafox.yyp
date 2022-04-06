@@ -2,6 +2,7 @@
   "resources": [
     {"id":{"name":"objWall","path":"objects/objWall/objWall.yy",},"order":4,},
     {"id":{"name":"objProperty","path":"objects/objProperty/objProperty.yy",},"order":7,},
+    {"id":{"name":"scrPaintBrush","path":"scripts/scrPaintBrush/scrPaintBrush.yy",},"order":9,},
     {"id":{"name":"scrPlaceRef","path":"scripts/scrPlaceRef/scrPlaceRef.yy",},"order":3,},
     {"id":{"name":"objBlock","path":"objects/objBlock/objBlock.yy",},"order":2,},
     {"id":{"name":"scrEnum","path":"scripts/scrEnum/scrEnum.yy",},"order":1,},

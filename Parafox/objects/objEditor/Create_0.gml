@@ -11,6 +11,8 @@ selectedTimer = 0;
 doubleclickTimer = 0;
 frameDelay = false;
 
+paintBrushColor = COLOR.A;
+
 dragging = false;
 dragX = 0;
 dragY = 0;
@@ -21,8 +23,12 @@ editing.createProperties();
 unsavedChanges = false;
 filePath = "";
 
-createButtons();
-draw_set_font(fntDefault);
+gameStart = function()
+{
+	draw_set_font(fntDefault);
+	createButtons();
+	arrangeUIInstances();
+}
 
 step = function()
 {	

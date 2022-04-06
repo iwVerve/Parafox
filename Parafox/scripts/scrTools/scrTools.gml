@@ -25,6 +25,9 @@ function resolveTool(tool, rect)
 		case TOOL.DRAWWALLS:
 			drawWallsResolveMouse(rect);
 			break;
+		case TOOL.PAINTBRUSH:
+			paintBrushResolveMouse(rect);
+			break;
 	}
 }
 
@@ -90,6 +93,8 @@ function getToolText(tool)
 			return "Paste object";
 		case TOOL.DRAWWALLS:
 			return "Draw walls/Cancel";
+		case TOOL.PAINTBRUSH:
+			return "Paint Blocks/Cancel";
 		default:
 			return "";
 	}

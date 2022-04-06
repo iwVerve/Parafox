@@ -55,13 +55,13 @@ function arrangeUIInstances()
 	{
 		with(instance_find(objProperty, i))
 		{
+			update(objEditor.propertiesOf);
 			if (visible)
 			{
 				x = room_width - 16;
 				y = 16 + offset;
 				offset += global.buttonSpacing;
 			}
-			update(objEditor.propertiesOf);
 		}
 	}
 	
@@ -70,13 +70,13 @@ function arrangeUIInstances()
 	{
 		with(instance_find(objButton, i))
 		{
+			update(objEditor);
 			if (visible)
 			{
 				x = 16;
 				y = 16 + offset;
 				offset += global.buttonSpacing;
 			}
-			update(objEditor);
 		}
 	}
 }
@@ -356,6 +356,7 @@ function createButtons()
 			with(objEditor)
 			{
 				view = EDITORVIEW.GRID;
+				tool = TOOL.SELECT;
 				frameDelay = true;
 			}
 		}
@@ -449,6 +450,41 @@ function createButtons()
 			visible = (editor.view == EDITORVIEW.EDIT);
 		}
 		tooltip = "(Shift + Click)";
+	}
+	with(instance_create_layer(0, 0, "UI", objButton))
+	{
+		name = "Paint Blocks";
+		click = function()
+		{
+			with(objEditor)
+			{
+				if (tool != TOOL.PAINTBRUSH)
+				{
+					tool = TOOL.PAINTBRUSH;
+				}
+				else
+				{
+					paintBrushColor++;
+					if (paintBrushColor >= COLOR.NUMBER)
+					{
+						paintBrushColor -= COLOR.NUMBER;
+					}
+				}
+				frameDelay = true;
+			}
+		}
+		update = function(editor)
+		{
+			name = "Paint Blocks"
+			if (editor.tool == TOOL.PAINTBRUSH)
+			{
+				name += " [";
+				name += getColorName(editor.paintBrushColor);
+				name += "]";
+			}
+			visible = (editor.view == EDITORVIEW.EDIT);
+		}
+		tooltip = "Click again to cycle through colors."
 	}
 	with(instance_create_layer(0, 0, "UI", objButton))
 	{
@@ -595,5 +631,42 @@ function getFloorTypeFromName(name)
 			return FLOOR.PLAYERBUTTON;
 		case "FastTravel":
 			return FLOOR.FASTTRAVEL;
+	}
+}
+
+function paintBlock(inst, col)
+{
+	switch(col)
+	{
+		case COLOR.A:
+			inst.hue = 0.0;
+			inst.sat = 0.0;
+			inst.val = 0.8;
+			break;
+		case COLOR.B:
+			inst.hue = 0.6;
+			inst.sat = 0.8;
+			inst.val = 1.0;
+			break;
+		case COLOR.C:
+			inst.hue = 0.4;
+			inst.sat = 0.8;
+			inst.val = 1.0;
+			break;
+		case COLOR.D:
+			inst.hue = 0.1;
+			inst.sat = 0.8;
+			inst.val = 1.0;
+			break;
+		case COLOR.E:
+			inst.hue = 0.9;
+			inst.sat = 1.0;
+			inst.val = 0.7;
+			break;
+		case COLOR.F:
+			inst.hue = 0.55;
+			inst.sat = 0.8;
+			inst.val = 1.0;
+			break;
 	}
 }

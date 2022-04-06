@@ -34,6 +34,7 @@ enum TOOL
 	LINKREF,
 	PASTE,
 	DRAWWALLS,
+	PAINTBRUSH,
 	NUMBER
 }
 
@@ -41,4 +42,15 @@ enum EDITORVIEW
 {
 	EDIT = 0,
 	GRID
+}
+
+enum COLOR
+{
+	A = 0,
+	B,
+	C,
+	D,
+	E,
+	F,
+	NUMBER
 }

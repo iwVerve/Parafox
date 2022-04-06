@@ -80,6 +80,7 @@ function fileToString(filePath)
 	{
 		str += file_text_readln(file);
 	}
+	file_text_close(file);
 	
 	return str;
 }
@@ -174,4 +175,23 @@ function drawTextOutlined(xx, yy, string, scale, fillColor, outlineColor)
 function pointInRect(xx, yy, rect)
 {
 	return (inRange(xx, rect.x1, rect.x2) && inRange(yy, rect.y1, rect.y2));
+}
+
+function getColorName(color)
+{
+	switch(color)
+	{
+		case COLOR.A:
+			return "Root";
+		case COLOR.B:
+			return "Block 1";
+		case COLOR.C:
+			return "Block 2";
+		case COLOR.D:
+			return "Push block";
+		case COLOR.E:
+			return "Player";
+		case COLOR.F:
+			return "Block 3";
+	}
 }
