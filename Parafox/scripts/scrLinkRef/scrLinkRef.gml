@@ -16,7 +16,7 @@ function linkRefResolveMouse(rect)
 			{
 				selected.index = inst.index;
 			}
-			else if (inRange(mouse_x, rect.x1, rect.x2) && inRange(mouse_y, rect.y1, rect.y2))
+			else if (pointInRect(mouse_x, mouse_y, rect))
 			{
 				selected.index = editing.index;
 			}

@@ -93,7 +93,7 @@ function selectMouseSelect(rect)
 {
 	if (!frameDelay && mouse_check_button_pressed(mb_left))
 	{
-		if (inRange(mouse_x, rect.x1, rect.x2) && inRange(mouse_y, rect.y1, rect.y2))
+		if (pointInRect(mouse_x, mouse_y, rect))
 		{
 			var xSel = getCoord(mouse_x, rect.x1, rect.x2, editing.width);
 			var ySel = getCoord(mouse_y, rect.y1, rect.y2, editing.height);

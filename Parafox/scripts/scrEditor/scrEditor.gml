@@ -50,22 +50,33 @@ function getCoord(val, a, b, tiles)
 
 function arrangeUIInstances()
 {
+	var offset = 0;
 	for(var i = 0; i < instance_number(objProperty); i++)
 	{
 		with(instance_find(objProperty, i))
 		{
-			x = room_width - 16;
-			y = 16 + 40 * i;
+			if (visible)
+			{
+				x = room_width - 16;
+				y = 16 + offset;
+				offset += global.buttonSpacing;
+			}
 			update(objEditor.propertiesOf);
 		}
 	}
 	
+	offset = 0;
 	for(var i = 0; i < instance_number(objButton); i++)
 	{
 		with(instance_find(objButton, i))
 		{
-			x = 16;
-			y = 16 + 40 * i;
+			if (visible)
+			{
+				x = 16;
+				y = 16 + offset;
+				offset += global.buttonSpacing;
+			}
+			update(objEditor);
 		}
 	}
 }
@@ -87,6 +98,12 @@ function selectInstance(inst, xSel = 0, ySel = 0)
 		
 		selected.createProperties();
 	}
+}
+
+function deselectInstance()
+{
+	destroyProperties();
+	selected = noone;
 }
 
 function destroyProperties()
@@ -333,6 +350,40 @@ function createButtons()
 	}
 	with(instance_create_layer(0, 0, "UI", objButton))
 	{
+		name = "Grid View";
+		click = function()
+		{
+			with(objEditor)
+			{
+				view = EDITORVIEW.GRID;
+				frameDelay = true;
+			}
+		}
+		update = function(editor)
+		{
+			visible = (editor.view == EDITORVIEW.EDIT);
+		}
+		tooltip = "(Tab)";
+	}
+	with(instance_create_layer(0, 0, "UI", objButton))
+	{
+		name = "Exit Grid View";
+		click = function()
+		{
+			with(objEditor)
+			{
+				view = EDITORVIEW.EDIT;
+				frameDelay = true;
+			}
+		}
+		update = function(editor)
+		{
+			visible = (editor.view == EDITORVIEW.GRID);
+		}
+		tooltip = "(Tab)";
+	}
+	with(instance_create_layer(0, 0, "UI", objButton))
+	{
 		name = "Place Block";
 		click = function()
 		{
@@ -341,6 +392,10 @@ function createButtons()
 				tool = TOOL.PLACEBLOCK;
 				frameDelay = true;
 			}
+		}
+		update = function(editor)
+		{
+			visible = (editor.view == EDITORVIEW.EDIT);
 		}
 		tooltip = "(1)";
 	}
@@ -355,6 +410,10 @@ function createButtons()
 				frameDelay = true;
 			}
 		}
+		update = function(editor)
+		{
+			visible = (editor.view == EDITORVIEW.EDIT);
+		}
 		tooltip = "(2)";
 	}
 	with(instance_create_layer(0, 0, "UI", objButton))
@@ -368,6 +427,10 @@ function createButtons()
 				frameDelay = true;
 			}
 		}
+		update = function(editor)
+		{
+			visible = (editor.view == EDITORVIEW.EDIT);
+		}
 		tooltip = "(3)";
 	}
 	with(instance_create_layer(0, 0, "UI", objButton))
@@ -380,6 +443,10 @@ function createButtons()
 				tool = TOOL.DRAWWALLS;
 				frameDelay = true;
 			}
+		}
+		update = function(editor)
+		{
+			visible = (editor.view == EDITORVIEW.EDIT);
 		}
 		tooltip = "(Shift + Click)";
 	}
@@ -397,6 +464,10 @@ function createButtons()
 				}
 			}
 		}
+		update = function(editor)
+		{
+			visible = (editor.view == EDITORVIEW.EDIT);
+		}
 		tooltip = "(Delete/Shift + Right click)";
 	}
 	with(instance_create_layer(0, 0, "UI", objButton))
@@ -411,6 +482,10 @@ function createButtons()
 					copyInstance(selected);
 				}
 			}
+		}
+		update = function(editor)
+		{
+			visible = (editor.view == EDITORVIEW.EDIT);
 		}
 		tooltip = "(Ctrl+C)";
 	}
@@ -427,6 +502,10 @@ function createButtons()
 				}
 			}
 		}
+		update = function(editor)
+		{
+			visible = (editor.view == EDITORVIEW.EDIT);
+		}
 		tooltip = "(Ctrl+X)";
 	}
 	with(instance_create_layer(0, 0, "UI", objButton))
@@ -442,6 +521,10 @@ function createButtons()
 					frameDelay = true;
 				}
 			}
+		}
+		update = function(editor)
+		{
+			visible = (editor.view == EDITORVIEW.EDIT);
 		}
 		tooltip = "(Ctrl+V)";
 	}

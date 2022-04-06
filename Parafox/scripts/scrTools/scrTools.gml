@@ -48,6 +48,12 @@ function resolveGlobal(rect)
 		tool = TOOL.PLACEFLOOR;
 	}
 	
+	if (keyboard_check_pressed(vk_tab))
+	{
+		deselectInstance();
+		view = EDITORVIEW.GRID;
+	}
+	
 	if (keyboard_check(vk_control))
 	{
 		var xSel = getCoord(mouse_x, rect.x1, rect.x2, editing.width);

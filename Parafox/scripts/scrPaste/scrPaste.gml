@@ -6,12 +6,15 @@ function pasteResolveMouse(rect)
 		var ySel = getCoord(mouse_y, rect.y1, rect.y2, editing.height);
 		
 		var inst = editing.children[# xSel, ySel];
-		if ((inRange(mouse_x, rect.x1, rect.x2)) && (inRange(mouse_y, rect.y1, rect.y2)))
+		if (pointInRect(mouse_x, mouse_y, rect))
 		{	
 			if (inst == noone)
 			{
 				var inst = pasteInstance(xSel, ySel);
-				selectInstance(inst);
+				if (inst != noone)
+				{
+					selectInstance(inst);
+				}
 				
 				unsavedChanges = true;
 				tool = TOOL.SELECT;

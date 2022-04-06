@@ -36,3 +36,9 @@ enum TOOL
 	DRAWWALLS,
 	NUMBER
 }
+
+enum EDITORVIEW
+{
+	EDIT = 0,
+	GRID
+}

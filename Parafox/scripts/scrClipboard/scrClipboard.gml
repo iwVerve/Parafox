@@ -19,7 +19,10 @@ function checkClipboardControls(xSel, ySel)
 		if (clipboard != noone)
 		{
 			var inst = pasteInstance(xSel, ySel);
-			selectInstance(inst);
+			if (inst != noone)
+			{
+				selectInstance(inst);
+			}
 		}
 	}
 }
@@ -40,6 +43,7 @@ function pasteInstance(xx, yy)
 {
 	if (editing.children[# xx, yy] == noone)
 	{
+		unsavedChanges = true;
 		switch(stringSplit(removeLeadingTabs(clipboard), " ")[0])
 		{
 			case "Block":
@@ -68,6 +72,6 @@ function pasteInstance(xx, yy)
 				editing.children[# xx, yy] = flr;
 				return flr;
 		}
-		unsavedChanges = true;
 	}
+	return noone;
 }

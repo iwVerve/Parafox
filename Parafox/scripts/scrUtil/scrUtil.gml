@@ -142,9 +142,19 @@ function Rect(_x1, _y1, _x2, _y2) constructor
 	{
 		return new Rect(x1, y1, x2, y2);
 	}
+	
+	scale = function(size)
+	{
+		var xCenter = mean(x1, x2);
+		var yCenter = mean(y1, y2);
+		x1 = lerp(xCenter, x1, size);
+		y1 = lerp(yCenter, y1, size);
+		x2 = lerp(xCenter, x2, size);
+		y2 = lerp(yCenter, y2, size);
+	}
 }
 
-function drawTextOutlined(xx, yy, string, fillColor, outlineColor)
+function drawTextOutlined(xx, yy, string, scale, fillColor, outlineColor)
 {
 	draw_set_color(outlineColor);
 	for(var i = -1; i <= 1; i++)
@@ -153,10 +163,15 @@ function drawTextOutlined(xx, yy, string, fillColor, outlineColor)
 		{
 			if (i != 0 && j != 0)
 			{
-				draw_text(xx+i, yy+j, string);
+				draw_text_transformed(xx+i, yy+j, string, scale, scale, 0);
 			}
 		}
 	}
 	draw_set_color(fillColor);
-	draw_text(xx, yy, string);
+	draw_text_transformed(xx, yy, string, scale, scale, 0);
+}
+
+function pointInRect(xx, yy, rect)
+{
+	return (inRange(xx, rect.x1, rect.x2) && inRange(yy, rect.y1, rect.y2));
 }
