@@ -60,7 +60,7 @@ parse = function(str)
 		var xx = real(args[1]);
 		var yy = real(args[2]);
 		var inst = owner.children[# xx, yy];
-		if (inst != noone && inst.object_index == objButton)
+		if (instIsObject(inst, objButton))
 		{
 			placedOn = inst.type;
 		}
@@ -294,15 +294,42 @@ draw = function(rect, level)
 	
 	with(findBlockByIndex(index))
 	{
-		draw(rect.clone(), level+1);
+		draw(rect.clone(), level+1, false);
 	}
 	
 	if (!exitblock)
 	{
-		draw_set_alpha(0.5);
+		draw_set_alpha(0.33);
 		draw_set_color(c_white);
 		drawRect(rect, false);
 		draw_set_alpha(1);
+	}
+	
+	if (infexit)
+	{
+		var xx1 = lerp(rect.x1, rect.x2, (1 - 1/(infexitnum + 1)) / 2);
+		var xx2 = lerp(rect.x1, rect.x2, (1 + 1/(infexitnum + 1)) / 2);
+		for (var i = 0; i < (infexitnum + 1); i++)
+		{
+			var yy1 = lerp(rect.y1, rect.y2, i / (infexitnum + 1));
+			var yy2 = lerp(rect.y1, rect.y2, (i+1) / (infexitnum + 1));
+			
+			var infRect = new Rect(xx1, yy1, xx2, yy2);
+			drawSpriteRect(sprInfinity, 0, infRect, 0.75);
+		}
+	}
+	else if (infenter)
+	{
+		var xx1 = lerp(rect.x1, rect.x2, (1 - 1/(infenternum + 1)) / 2);
+		var xx2 = lerp(rect.x1, rect.x2, (1 + 1/(infenternum + 1)) / 2);
+		for (var i = 0; i < (infenternum + 1); i++)
+		{
+			var yy1 = lerp(rect.y1, rect.y2, i / (infenternum + 1));
+			var yy2 = lerp(rect.y1, rect.y2, (i+1) / (infenternum + 1));
+			
+			var epsRect = new Rect(xx1, yy1, xx2, yy2);
+			drawSpriteRect(sprEpsilon, 0, epsRect, 0.75);
+		}
 	}
 	
 	if (player)

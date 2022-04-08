@@ -81,8 +81,8 @@ parse = function(str)
 	destroyLevelInstances();
 	
 	var index = string_pos("#", str);
-	var header = string_copy(str, 1, index - 3);
-	var body = string_copy(str, index + 3, string_length(str) - index)
+	var header = removeSurroundingNewlines(string_copy(str, 1, index - 1));
+	var body = removeSurroundingNewlines(string_copy(str, index + 2, string_length(str) - index));
 	
 	parseHeader(header);
 	parseBody(body);

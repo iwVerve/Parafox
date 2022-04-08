@@ -83,6 +83,7 @@ parse = function(array)
 {
 	parseSelf(array[0]);
 	parseChildren(array);
+	updateWallIndexes(id);
 }
 
 parseSelf = function(str)
@@ -94,7 +95,7 @@ parseSelf = function(str)
 		var xx = real(args[1]);
 		var yy = real(args[2]);
 		var inst = owner.children[# xx, yy];
-		if (inst != noone && inst.object_index == objButton)
+		if (instIsObject(inst, objButton))
 		{
 			placedOn = inst.type;
 		}
@@ -364,7 +365,7 @@ createProperties = function()
 	showPropertiesOf(id);
 }
 
-draw = function(rect, level)
+draw = function(rect, level, drawHighlight = true)
 {
 	if (flipH)
 	{
@@ -427,5 +428,8 @@ draw = function(rect, level)
 		drawSpriteRect(sprPossessable, 0, rect, 0.75);
 	}
 	
-	highlightIfSelected(rect);
+	if (drawHighlight)
+	{
+		highlightIfSelected(rect);
+	}
 }

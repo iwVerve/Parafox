@@ -4,10 +4,10 @@ function stringSplit(str, char)
 	while(string_pos(char, str) != 0)
 	{
 		var index = string_pos(char, str);
-		array_push(array, string_copy(str, 1, index - 1));
+		array_push(array, removeSurroundingNewlines(string_copy(str, 1, index - 1)));
 		str = string_delete(str, 1, index);
 	}
-	array_push(array, removeTrailingNewlines(str));
+	array_push(array, removeSurroundingNewlines(str));
 	
 	return array;
 }
@@ -40,6 +40,22 @@ function removeTrailingNewlines(str)
 		c = string_char_at(str, string_length(str));
 	}
 	return str;
+}
+
+function removeLeadingNewlines(str)
+{
+	var c = string_char_at(str, 1);
+	while(c == "\n" || c == "\r")
+	{
+		str = string_delete(str, 1, 1);
+		c = string_char_at(str, string_length(str));
+	}
+	return str;
+}
+
+function removeSurroundingNewlines(str)
+{
+	return removeLeadingNewlines(removeTrailingNewlines(str));
 }
 
 function makeColorPat(hue, sat, val)
@@ -194,4 +210,25 @@ function getColorName(color)
 		case COLOR.F:
 			return "Block 3";
 	}
+}
+
+function drawSpritePosColor(sprite, index, x1, y1, x2, y2, x3, y3, x4, y4, color, alpha)
+{
+	var tex = sprite_get_texture(sprite, index);
+	draw_primitive_begin_texture(pr_trianglestrip, tex);
+		draw_vertex_texture_color(x1, y1, 0, 0, color, alpha);
+		draw_vertex_texture_color(x2, y2, 1, 0, color, alpha);
+		draw_vertex_texture_color(x4, y4, 0, 1, color, alpha);
+		draw_vertex_texture_color(x3, y3, 1, 1, color, alpha);
+	draw_primitive_end();
+}
+
+function drawSpriteRectColor(sprite, index, rect, color, alpha)
+{
+	drawSpritePosColor(sprite, index, rect.x1, rect.y1, rect.x2, rect.y1, rect.x2, rect.y2, rect.x1, rect.y2, color, alpha);
+}
+
+function instIsObject(inst, object)
+{
+	return (inst != noone && inst.object_index == object);
 }

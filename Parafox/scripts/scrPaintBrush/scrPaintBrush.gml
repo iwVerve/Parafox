@@ -8,12 +8,12 @@ function paintBrushResolveMouse(rect)
 		var inst = editing.children[# xSel, ySel];
 		if (pointInRect(mouse_x, mouse_y, rect))
 		{	
-			if (inst != noone && inst.object_index == objBlock)
+			if (instIsObject(inst, objBlock))
 			{
 				paintBlock(inst, paintBrushColor);
 				unsavedChanges = true;
 			}
-			else if (inst != noone && inst.object_index == objRef)
+			else if (instIsObject(inst, objRef))
 			{
 				paintBlock(findBlockByIndex(inst.index), paintBrushColor);
 				unsavedChanges = true;

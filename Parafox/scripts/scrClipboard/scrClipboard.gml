@@ -64,6 +64,7 @@ function pasteInstance(xx, yy)
 				wall.owner = editing;
 				wall.parse(clipboard);
 				editing.children[# xx, yy] = wall;
+				updateWallIndexes(editing);
 				return wall;
 			case "Floor":
 				var flr = instance_create_layer(0, 0, "Level", objFloor);

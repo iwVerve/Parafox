@@ -6,6 +6,8 @@ playerOrder = 0;
 
 placedOn = FLOOR.NONE;
 
+imageIndex = 0;
+
 serialize = function(indent, xx, yy)
 {
 	var str = "";
@@ -34,7 +36,7 @@ parse = function(str)
 		var xx = real(args[1]);
 		var yy = real(args[2]);
 		var inst = owner.children[# xx, yy];
-		if (inst != noone && inst.object_index == objButton)
+		if (instIsObject(inst, objButton))
 		{
 			placedOn = inst.type;
 		}
@@ -106,8 +108,7 @@ createProperties = function()
 
 draw = function(rect, level)
 {
-	draw_set_color(makeColorPat(owner.hue, owner.sat, owner.val));
-	drawRect(rect, false);
+	drawSpriteRectColor(sprWall, imageIndex, rect, makeColorPat(owner.hue, owner.sat, owner.val), 1);
 	
 	if (player)
 	{

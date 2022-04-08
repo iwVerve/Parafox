@@ -2,6 +2,13 @@ function removeInstance(inst, destroy)
 {
 	if (inst.object_index == objBlock)
 	{
+		with(objRef)
+		{
+			if (index == inst.index)
+			{
+				index = findTakenIndex(inst);
+			}
+		}
 		for(var i = 0; i < inst.width; i++)
 		{
 			for(var j = 0; j < inst.height; j++)
@@ -269,6 +276,18 @@ function findFreeIndex(inst)
 	return targetIndex;
 }
 
+function findTakenIndex(inst)
+{
+	with(objBlock)
+	{
+		if (id != inst)
+		{
+			return index;
+		}
+	}
+	return 0;
+}
+
 function dragInstance(rect)
 {
 	var xSel = getCoord(mouse_x, rect.x1, rect.x2, editing.width);
@@ -280,6 +299,7 @@ function dragInstance(rect)
 		dragX = xSel;
 		dragY = ySel;
 		unsavedChanges = true;
+		updateWallIndexes(editing);
 	}
 }
 

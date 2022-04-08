@@ -68,6 +68,11 @@ function resolveGlobal(rect)
 		{
 			saveMap(id, filePath);
 		}
+		
+		if (keyboard_check_pressed(ord("Z")))
+		{
+			undoAction(objEditor);
+		}
 	}
 }
 

@@ -12,3 +12,6 @@ global.buttonSpacing = 36;
 
 global.textScaleTooltip = 0.7;
 global.textScaleButton = 0.8;
+
+global.undoStackSize = 100;
+global.undoFrequency = 100;

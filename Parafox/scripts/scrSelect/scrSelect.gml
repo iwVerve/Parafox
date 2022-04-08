@@ -30,6 +30,7 @@ function selectResolveKeyboard(rect)
 				editing.children[# xx, yy + yMove] = selected;
 			}
 		}
+		updateWallIndexes(editing);
 	}
 	
 	if (keyboard_check_pressed(vk_enter))
@@ -63,6 +64,7 @@ function selectResolveKeyboard(rect)
 		}
 		incrementBlockWidth(target);
 		incrementBlockHeight(target);
+		updateWallIndexes(editing);
 	}
 	
 	if (keyboard_check_pressed(vk_subtract) || keyboard_check_pressed(189))
@@ -74,6 +76,7 @@ function selectResolveKeyboard(rect)
 		}
 		decrementBlockWidth(target);
 		decrementBlockHeight(target);
+		updateWallIndexes(editing);
 	}
 }
 
@@ -201,6 +204,7 @@ function selectMouseDraw(rect)
 			wall.owner = editing;
 			editing.children[# xSel, ySel] = wall;
 			unsavedChanges = true;
+			updateWallIndexes(editing);
 		}
 	}
 	else if (mouse_check_button(mb_right))
@@ -211,6 +215,7 @@ function selectMouseDraw(rect)
 			removeInstance(inst, true);
 			selectInstance(noone);
 			unsavedChanges = true;
+			updateWallIndexes(editing);
 		}
 	}
 }

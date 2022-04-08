@@ -1,5 +1,5 @@
 level = instance_create_layer(0, 0, "Level", objLevel);
-level.parse(fileToString("startup.txt"));
+
 
 view = EDITORVIEW.EDIT;
 
@@ -22,12 +22,27 @@ editing.createProperties();
 
 unsavedChanges = false;
 filePath = "";
+undoStack = ds_list_create();
+
+undoTimer = 0;
 
 gameStart = function()
 {
 	draw_set_font(fntDefault);
 	createButtons();
 	arrangeUIInstances();
+	
+	parse(fileToString("startup.txt"));
+}
+
+parse = function(str)
+{
+	destroyProperties();
+	
+	level.parse(str);
+	editing = level.block;
+	
+	selectInstance(noone);
 }
 
 step = function()
@@ -53,8 +68,9 @@ step = function()
 				rect.x1 = rect.x2;
 				rect.x2 = temp;
 			}
-	
+			
 			resolveTool(tool, rect);
+			//updateWallIndexes(editing);
 			break;
 		case EDITORVIEW.GRID:
 			gridViewStep();
@@ -67,6 +83,13 @@ step = function()
 	
 	selectedTimer++;
 	doubleclickTimer--;
+	undoTimer++;
+	
+	if (undoTimer >= global.undoFrequency)
+	{
+		tryAndAddUndo(id);
+		undoTimer = 0;
+	}
 	
 	frameDelay = false;
 }
