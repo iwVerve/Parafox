@@ -24,7 +24,8 @@ Levels consists of 4 different types of objects.
 editor will assign the lowest unused value everytime you make a Block.
 -The "Fill with walls" property turns a block into a solid filled square.
 -The "Float in space" property places the block outside of the main Block, making it inaccesible
-without References.
+without References. Since you can now make multiple root blocks, it is technically obsolete for
+this editor, as it's easy making blocks completely separate from each other.
 
 -References are copies of specific Blocks. Blocks and References are connected by their index value.
 -The "Exit Block" property allows the player to leave the referenced Block, and exit wherever the
@@ -55,11 +56,10 @@ of infinity. Requires a level to be inside itself, through the use of an Exit bl
 
 --Epsilon block--
 Infinite enter blocks are both hard to understand and a hassle to make. For technical reasons, only
-a Reference can be an epsilon block, even when it being a regular Block would make sense. To work
-around this, place the actual block anywhere in the level, check "Float in space", and make a
-Reference to it with "Exit Block" checked.
-Each epsilon block can only be entered from one block - its Infinite enter index. The Infinite
-Enter Number sets the amount of layers (amount of epsilons), 0 being 1 epsilon.
+a Reference can be an epsilon block, even when it being a regular Block would make sense. From grid
+view, make a new root block - your epsilon block. Make a Reference to it with "Exit Block" checked.
+Each epsilon block can only be entered from infinite entering one block - its Infinite enter index.
+The Infinite Enter Number sets the amount of layers (amount of epsilons), 0 being 1 epsilon.
 
 
 --Palettes--
@@ -73,7 +73,7 @@ If the level palette is not set to -1, the game will apply a palette based on sp
 
 
 --Shortcomings--
-The editor currently has no undo and group select feature. Maybe one day...
+The editor currently has no group select feature. Maybe one day...
 
 
 --Controls, shortcuts--
