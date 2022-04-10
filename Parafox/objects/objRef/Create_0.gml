@@ -188,7 +188,7 @@ createProperties = function()
 		{
 			inst.infenterid = floor(defineReal(get_integer("Enter new infinite enter index", ""), inst.infenterid));
 		}
-		tooltip = "This epsilon block will get entered when performing an infinite enter in a block with this index.";
+		tooltip = "This epsilon block will get entered when performing an infinite enter into a block with this index.";
 	}
 	with(instance_create_layer(0, 0, "UI", objProperty))
 	{
