@@ -100,6 +100,8 @@ function getToolText(tool)
 			return "Draw walls/Cancel";
 		case TOOL.PAINTBRUSH:
 			return "Paint Blocks/Cancel";
+		case TOOL.GRIDDELETE:
+			return "Delete (Hold shift to delete multiple)";
 		default:
 			return "";
 	}

@@ -33,9 +33,7 @@ function gridViewStep()
 				
 				if (!frameDelay && mouse_check_button_pressed(mb_left) && pointInRect(mouse_x, mouse_y, blockRect))
 				{
-					editing = block;
-					selectInstance(noone);
-					view = EDITORVIEW.EDIT;
+					gridViewResolveMouse(block, blockArray, arrayIndex);
 				}
 			}
 		}
@@ -77,7 +75,7 @@ function gridViewDraw()
 				draw_set_color(c_white);
 				var scale = clamp(squareSize/(300 * divisions), 0.2, 1);
 				var offset = 2/divisions;
-				draw_text_transformed(blockRect.x1 + offset, blockRect.y1 - offset, block.index, scale, scale, 0);
+				draw_text_transformed(blockRect.x1 + offset, blockRect.y1 - offset, string(block.index) + ((instIsObject(block.owner, objLevel)) ? " (Root)" : ""), scale, scale, 0);
 			}
 		}
 	}
@@ -94,4 +92,28 @@ function getGridViewBlockArray()
 		}
 	}
 	return array;
+}
+
+function gridViewResolveMouse(block, blockArray, index)
+{
+	switch(tool)
+	{
+		case TOOL.SELECT:
+			editing = block;
+			selectInstance(noone);
+			view = EDITORVIEW.EDIT;
+			break;
+		case TOOL.GRIDDELETE:
+			removeInstance(block, true);
+			if (instIsObject(block.owner, objLevel))
+			{
+				ds_list_delete(level.rootBlocks, ds_list_find_index(level.rootBlocks, block));
+			}
+			blockArray = getGridViewBlockArray();
+			if (!keyboard_check(vk_shift) && array_length(blockArray) > 1)
+			{
+				tool = TOOL.SELECT;
+			}
+			break;
+	}
 }

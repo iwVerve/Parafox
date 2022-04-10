@@ -1,4 +1,4 @@
---Parafox-- (1.1.1.1)
+--Parafox-- (1.1.1.1.1)
 A level editor for Patrick's Parabox
   (https://store.steampowered.com/app/1260520/Patricks_Parabox/)
 Made by Verve
@@ -89,6 +89,7 @@ Ctrl+S - Save
 3 - Place Floor
 Tab - Grid View
 Delete - Delete selected object
+Ctrl+Z - Undo
 Ctrl+C - Copy
 Ctrl+X - Cut
 Ctrl+V - Paste

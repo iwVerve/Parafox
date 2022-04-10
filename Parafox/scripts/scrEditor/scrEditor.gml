@@ -22,25 +22,42 @@ function removeInstance(inst, destroy)
 		}
 	}
 	var instOwner = inst.owner;
-	for(var i = 0; i < instOwner.width; i++)
+	if (!instIsObject(instOwner, objLevel))
 	{
-		for(var j = 0; j < instOwner.height; j++)
+		for(var i = 0; i < instOwner.width; i++)
 		{
-			if (instOwner.children[# i, j] == inst)
+			for(var j = 0; j < instOwner.height; j++)
 			{
-				instOwner.children[# i, j] = noone;
-				if (destroy)
+				if (instOwner.children[# i, j] == inst)
 				{
-					instance_destroy(inst);
+					instOwner.children[# i, j] = noone;
+					if (destroy)
+					{
+						instance_destroy(inst);
+					}
+					else
+					{
+						inst.owner = noone;
+					}
+					unsavedChanges = true;
+					updateWallIndexes(editing);
+					exit;
 				}
-				else
-				{
-					inst.owner = noone;
-				}
-				unsavedChanges = true;
-				exit;
 			}
 		}
+	}
+	else
+	{
+		if (destroy)
+		{
+			instance_destroy(inst);
+		}
+		else
+		{
+			inst.owner = noone;
+		}
+		unsavedChanges = true;
+		updateWallIndexes(editing);
 	}
 }
 
@@ -251,7 +268,7 @@ function loadMap(editor)
 	if (filePath != "")
 	{
 		editor.level.parse(fileToString(filePath));
-		editor.editing = editor.level.block;
+		editor.editing = editor.level.rootBlocks[| 0];
 		editor.selected = noone;
 		editor.editing.createProperties();
 	}
@@ -354,6 +371,22 @@ function createButtons()
 		{
 			loadMap(objEditor);
 		}
+	}
+	with(instance_create_layer(0, 0, "UI", objButton))
+	{
+		name = "Undo";
+		click = function()
+		{
+			with(objEditor)
+			{
+				undoAction(id);
+			}
+		}
+		update = function()
+		{
+			name = "Undo (" + string(ds_list_size(objEditor.undoStack)) + ")";
+		}
+		tooltip = "(Ctrl+Z)";
 	}
 	with(instance_create_layer(0, 0, "UI", objButton))
 	{
@@ -583,6 +616,39 @@ function createButtons()
 			visible = (editor.view == EDITORVIEW.EDIT);
 		}
 		tooltip = "(Ctrl+V)";
+	}
+	with(instance_create_layer(0, 0, "UI", objButton))
+	{
+		name = "Add root block";
+		click = function()
+		{
+			with(objEditor)
+			{
+				var block = instance_create_layer(0, 0, "Level", objBlock);
+				block.owner = level;
+				ds_list_add(level.rootBlocks, block);
+			}
+		}
+		update = function(editor)
+		{
+			visible = (editor.view == EDITORVIEW.GRID);
+		}
+	}
+	with(instance_create_layer(0, 0, "UI", objButton))
+	{
+		name = "Delete block";
+		click = function()
+		{
+			with(objEditor)
+			{
+				tool = TOOL.GRIDDELETE;
+				frameDelay = true;
+			}
+		}
+		update = function(editor)
+		{
+			visible = (editor.view == EDITORVIEW.GRID);
+		}
 	}
 }
 

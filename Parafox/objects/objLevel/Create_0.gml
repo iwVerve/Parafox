@@ -10,13 +10,21 @@ drawStyle = DRAWSTYLE.NORMAL;
 music = -1;
 palette = -1;
 
-block = instance_create_layer(0, 0, "Level", objBlock);
+rootBlocks = ds_list_create();
+ds_list_add(rootBlocks, instance_create_layer(0, 0, "Level", objBlock));
 
 serialize = function()
 {
 	var str = "";
 	str += serializeHeader();
-	str += block.serialize(0, -1, -1);
+	for (var i = 0; i < ds_list_size(rootBlocks); i++)
+	{
+		str += rootBlocks[| i].serialize(0, -1, -1);
+		if (i != ds_list_size(rootBlocks) - 1)
+		{
+			str += "\n";
+		}
+	}
 	return str;
 }
 
@@ -49,11 +57,11 @@ serializeHeader = function()
 	
 	if (shed)
 	{
-		str += "shed\n";
+		str += "shed 1\n";
 	}
 	if (innerPush)
 	{
-		str += "inner_push\n";
+		str += "inner_push 1\n";
 	}
 	
 	if (drawStyle != DRAWSTYLE.NORMAL)
@@ -133,10 +141,32 @@ parseHeader = function(str)
 
 parseBody = function(str)
 {
+	ds_list_clear(rootBlocks);
+	
 	var lines = stringSplit(str, "\n");
-	block = instance_create_layer(0, 0, "Level", objBlock);
-	block.owner = id;
-	block.parse(lines);
+	
+	for(var i = 0; i < array_length(lines); i++)
+	{
+		var line = lines[i];
+		if (countLeadingTabs(line) == 0)
+		{
+			var block = instance_create_layer(0, 0, "Level", objBlock);
+			block.owner = id;
+	
+			var index = i + 1;
+			while(index < array_length(lines) && countLeadingTabs(lines[index]) > 0)
+			{
+				index++;
+			}
+			index--;
+			var blockArgs = array_create(index - i + 1);
+			array_copy(blockArgs, 0, lines, i, index - i + 1);
+	
+			block.parse(blockArgs);
+			ds_list_add(rootBlocks, block);
+		}
+	}
+	
 }
 
 createProperties = function()

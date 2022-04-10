@@ -1,10 +1,8 @@
 level = instance_create_layer(0, 0, "Level", objLevel);
-
-
 view = EDITORVIEW.EDIT;
 
 tool = TOOL.SELECT;
-editing = level.block;
+editing = level.rootBlocks[| 0];
 propertiesOf = noone;
 selected = noone;
 selectedTimer = 0;
@@ -40,7 +38,7 @@ parse = function(str)
 	destroyProperties();
 	
 	level.parse(str);
-	editing = level.block;
+	editing = level.rootBlocks[| 0];
 	
 	selectInstance(noone);
 }
