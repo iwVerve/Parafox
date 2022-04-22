@@ -1,5 +1,5 @@
-global.depthLimit = 10;
-global.sizeLimit = 4;
+global.depthLimit = 7;
+global.sizeLimit = 5;
 
 global.minBlockSize = 1;
 global.maxBlockSize = 400;

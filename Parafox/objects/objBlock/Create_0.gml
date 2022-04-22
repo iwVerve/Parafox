@@ -407,8 +407,11 @@ draw = function(rect, level, drawHighlight = true)
 	}
 	drawRect(rect, false);
 	
+	var drawLines = (min(abs(rect.x2 - rect.x1)/width, abs(rect.y2 - rect.y1)/height) > 1);
+	var drawChildren = (min(abs(rect.x2 - rect.x1)/width, abs(rect.y2 - rect.y1)/height) > global.sizeLimit);
+	
 	draw_set_color(c_black);
-	if (!fillWithWalls)
+	if (!fillWithWalls && drawLines)
 	{
 		for(var i = 0; i <= width; i++)
 		{
@@ -426,7 +429,7 @@ draw = function(rect, level, drawHighlight = true)
 		drawRect(rect, true);
 	}
 	
-	if (!fillWithWalls && (level < global.depthLimit) && (min(abs(rect.x2 - rect.x1), abs(rect.y2 - rect.y1)) > global.sizeLimit))
+	if (!fillWithWalls && (level < global.depthLimit) && drawChildren)
 	{
 		for(var i = 0; i < width; i++)
 		{

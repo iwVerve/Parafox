@@ -115,10 +115,10 @@ parseHeader = function(str)
 			case "attempt_order":
 				populateAttemptOrderFromString(attemptOrder, args[1]);
 				break;
-			case "shed":
+			case "shed 1":
 				shed = true;
 				break;
-			case "inner_push":
+			case "inner_push 1":
 				innerPush = true;
 				break;
 			case "draw_style":
