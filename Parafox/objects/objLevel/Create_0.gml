@@ -148,7 +148,7 @@ parseBody = function(str)
 	for(var i = 0; i < array_length(lines); i++)
 	{
 		var line = lines[i];
-		if (countLeadingTabs(line) == 0)
+		if (string_length(line) > 0 && countLeadingTabs(line) == 0)
 		{
 			var block = instance_create_layer(0, 0, "Level", objBlock);
 			block.owner = id;
