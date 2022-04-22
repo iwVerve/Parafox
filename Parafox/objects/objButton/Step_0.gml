@@ -1,7 +1,4 @@
-if (!visible)
-{
-	exit;
-}
+if !visible exit;
 
 var m = global.buttonPadding;
 var w = global.textScaleButton * string_width(name);

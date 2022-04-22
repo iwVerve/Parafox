@@ -320,12 +320,16 @@ function dragInstance(rect)
 	}
 }
 
-function serializeButtonBelow(type, indent, xx, yy)
+function serializeButtonBelow(type, indent, xx, yy, infoText = "")
 {
 	if (type != FLOOR.NONE)
 	{
 		var flr = instance_create_layer(0, 0, "Level", objFloor);
 		flr.type = type;
+		if (type == FLOOR.INFO)
+		{
+			flr.infoText = infoText;
+		}
 		var str = flr.serialize(indent, xx, yy);
 		instance_destroy(flr);
 		return str;
@@ -689,6 +693,8 @@ function getFloorSpriteFromType(type)
 			return sprPlayerButton;
 		case FLOOR.FASTTRAVEL:
 			return sprFastTravel;
+		case FLOOR.INFO:
+			return sprInfo;
 	}
 }
 
@@ -702,6 +708,8 @@ function getFloorNameFromType(type)
 			return "PlayerButton";
 		case FLOOR.FASTTRAVEL:
 			return "FastTravel";
+		case FLOOR.INFO:
+			return "Info";
 		default:
 			return "";
 	}
@@ -717,6 +725,8 @@ function getFloorTypeFromName(name)
 			return FLOOR.PLAYERBUTTON;
 		case "FastTravel":
 			return FLOOR.FASTTRAVEL;
+		case "Info":
+			return FLOOR.INFO;
 	}
 }
 

@@ -1,3 +1,5 @@
+if !visible exit;
+
 var str = name + " [" + string(value) + "]";
 
 var m = global.buttonPadding;

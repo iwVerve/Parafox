@@ -17,6 +17,7 @@ floatInSpace = false;
 specialEffect = 0;
 
 placedOn = FLOOR.NONE;
+placedOnInfoText = "Hello_World";
 
 serialize = function(indent, xx, yy)
 {
@@ -46,7 +47,7 @@ serialize = function(indent, xx, yy)
 	{
 		str += "\n";
 	}
-	str += serializeButtonBelow(placedOn, indent, xx, yy);
+	str += serializeButtonBelow(placedOn, indent, xx, yy, placedOnInfoText);
 	
 	return str;
 }
@@ -63,6 +64,10 @@ parse = function(str)
 		if (instIsObject(inst, objButton))
 		{
 			placedOn = inst.type;
+			if (placedOn == FLOOR.INFO)
+			{
+				placedOnInfoText = inst.infoText;
+			}
 		}
 		owner.children[# xx, yy] = id;
 	}
@@ -278,6 +283,24 @@ createProperties = function()
 			{
 				inst.placedOn -= FLOOR.NUMBER;
 			}
+		}
+	}
+	with(instance_create_layer(0, 0, "UI", objProperty))
+	{
+		name = "Text";
+		update = function(inst)
+		{
+			value = inst.placedOnInfoText;
+			visible = (inst.placedOn == FLOOR.INFO);
+		}
+		click = function(inst)
+		{
+			var str = get_string("Enter text of info tile (\\n for a new line)", "");
+			while(string_pos(" ", str) != 0)
+			{
+				str = string_replace(str, " ", "_");
+			}
+			inst.placedOnInfoText = str;
 		}
 	}
 	showPropertiesOf(id);
