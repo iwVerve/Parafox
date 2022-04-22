@@ -54,6 +54,7 @@ function resolveGlobal(rect)
 	if (keyboard_check_pressed(vk_tab))
 	{
 		deselectInstance();
+		tool = TOOL.SELECT;
 		view = EDITORVIEW.GRID;
 	}
 	
