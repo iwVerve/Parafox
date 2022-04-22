@@ -116,9 +116,13 @@ function selectInstance(inst, xSel = 0, ySel = 0)
 	{
 		selected = inst;
 		selectedTimer = 0;
-		dragging = true;
-		dragX = xSel;
-		dragY = ySel;
+		
+		if (inst.object_index != objLevel)
+		{
+			dragging = true;
+			dragX = xSel;
+			dragY = ySel;
+		}
 		
 		selected.createProperties();
 	}
