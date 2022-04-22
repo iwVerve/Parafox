@@ -172,6 +172,7 @@ function highlightIfSelected(rect)
 
 function incrementBlockWidth(inst)
 {
+	dragging = false;
 	if (inst.width < global.maxBlockSize)
 	{
 		inst.width += 1;
@@ -187,6 +188,7 @@ function incrementBlockWidth(inst)
 
 function incrementBlockHeight(inst)
 {
+	dragging = false;
 	if (inst.height < global.maxBlockSize)
 	{
 		inst.height += 1;
@@ -202,6 +204,7 @@ function incrementBlockHeight(inst)
 
 function decrementBlockWidth(inst)
 {
+	dragging = false;
 	if (inst.width > global.minBlockSize)
 	{
 		if (inst.width > 1)
@@ -215,6 +218,7 @@ function decrementBlockWidth(inst)
 
 function decrementBlockHeight(inst)
 {
+	dragging = false;
 	if (inst.height > global.minBlockSize)
 	{
 		if (inst.height > 1)
@@ -228,6 +232,8 @@ function decrementBlockHeight(inst)
 
 function resizeBlock(block, newWidth, newHeight)
 {
+	dragging = false;
+	
 	newWidth = clamp(newWidth, global.minBlockSize, global.maxBlockSize);
 	newHeight = clamp(newHeight, global.minBlockSize, global.maxBlockSize);
 	

@@ -230,5 +230,5 @@ function drawSpriteRectColor(sprite, index, rect, color, alpha)
 
 function instIsObject(inst, object)
 {
-	return (inst != noone && inst.object_index == object);
+	return (!is_undefined(inst) && instance_exists(inst) && inst.object_index == object);
 }
