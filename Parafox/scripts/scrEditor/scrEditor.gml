@@ -258,29 +258,48 @@ function resizeBlock(block, newWidth, newHeight)
 
 function saveMap(editor, filePath)
 {
-	if (filePath == "")
+	if (global.saveMode == 0)
 	{
-		filePath = get_save_filename_ext("Text file|*.txt", "level.txt", @"%appdata%\..\LocalLow\Patrick Traynor\Patrick's Parabox\custom_levels\", "Save Level As");
-		editor.filePath = filePath;
+		if (filePath == "")
+		{
+			filePath = get_save_filename_ext("Text file|*.txt", "level.txt", @"%appdata%\..\LocalLow\Patrick Traynor\Patrick's Parabox\custom_levels\", "Save Level As");
+			editor.filePath = filePath;
+		}
+		if (filePath != "")
+		{
+			var file = file_text_open_write(filePath);
+			file_text_write_string(file, editor.level.serialize());
+			file_text_close(file);
+			editor.unsavedChanges = false;
+		}
 	}
-	if (filePath != "")
+	else if (global.saveMode == 1)
 	{
-		var file = file_text_open_write(filePath);
-		file_text_write_string(file, editor.level.serialize());
-		file_text_close(file);
-		editor.unsavedChanges = false;
+		clipboard_set_text(editor.level.serialize());
 	}
 }
 
 function loadMap(editor)
 {
-	var filePath = get_open_filename_ext("Text file|*.txt", "", @"%appdata%\..\LocalLow\Patrick Traynor\Patrick's Parabox\custom_levels\", "Load Level");
-	if (filePath != "")
+	if (global.saveMode == 0)
 	{
-		editor.level.parse(fileToString(filePath));
+		var filePath = get_open_filename_ext("Text file|*.txt", "", @"%appdata%\..\LocalLow\Patrick Traynor\Patrick's Parabox\custom_levels\", "Load Level");
+		if (filePath != "")
+		{
+			editor.level.parse(fileToString(filePath));
+			editor.editing = editor.level.rootBlocks[| 0];
+			editor.selected = noone;
+			editor.editing.createProperties();
+			editor.filePath = "";
+		}
+	}
+	else if (global.saveMode == 1)
+	{
+		editor.level.parse(clipboard_get_text());
 		editor.editing = editor.level.rootBlocks[| 0];
 		editor.selected = noone;
 		editor.editing.createProperties();
+		editor.filePath = "";
 	}
 }
 
@@ -775,4 +794,14 @@ function paintBlock(inst, col)
 			inst.val = 1.0;
 			break;
 	}
+}
+
+function openConfig()
+{
+	ini_open("config.ini");
+	
+	global.saveMode = ini_read_real("main", "saveMode", 0);
+	ini_write_real("main", "saveMode", global.saveMode);
+	
+	ini_close();
 }

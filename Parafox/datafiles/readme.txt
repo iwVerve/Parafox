@@ -1,4 +1,4 @@
---Parafox-- (1.1.1.1.1.1)
+--Parafox-- (1.6)
 A level editor for Patrick's Parabox
   (https://store.steampowered.com/app/1260520/Patricks_Parabox/)
 Made by Verve
@@ -98,3 +98,9 @@ Ctrl+V - Paste
 
 When editing a Reference, you can right click the index property. Then, clicking on a Block will
 assign that Block's index to the Reference.
+
+
+--Config--
+On first launch the game creates a config.ini file in your local appdata folder. Currently this is
+only used for an alternative save method that saves to and loads from your clipboard instead of
+textfiles, as a workaround for issues on non-Windows systems (saveMode set to 1 instead of 0).

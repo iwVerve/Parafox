@@ -26,6 +26,8 @@ undoTimer = 0;
 
 gameStart = function()
 {
+	openConfig();
+	
 	draw_set_font(fntDefault);
 	createButtons();
 	arrangeUIInstances();
@@ -77,7 +79,7 @@ step = function()
 	
 	arrangeUIInstances();
 	
-	window_set_caption("Parafox" + ((unsavedChanges) ? "*" : ""));
+	window_set_caption("Parafox" + ((unsavedChanges) ? "*" : "") + " " + filePath);
 	
 	selectedTimer++;
 	doubleclickTimer--;

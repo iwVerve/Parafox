@@ -92,12 +92,14 @@ function fileToString(filePath)
 {
 	var str = "";
 	var file = file_text_open_read(filePath);
-	while(!file_text_eof(file))
+	if (file != -1)
 	{
-		str += file_text_readln(file);
+		while(file != -1 && !file_text_eof(file))
+		{
+			str += file_text_readln(file);
+		}
+		file_text_close(file);
 	}
-	file_text_close(file);
-	
 	return str;
 }
 
