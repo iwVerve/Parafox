@@ -33,25 +33,28 @@ serializeHeader = function()
 	var str = "";
 	str += "version 4\n";
 	
-	str += "attempt_order ";
-	for(var i = 0; i < ds_list_size(attemptOrder); i++)
+	if (!(attemptOrder[| 0] == ATTEMPTORDER.PUSH && attemptOrder[| 1] == ATTEMPTORDER.ENTER && attemptOrder[| 2] == ATTEMPTORDER.EAT && attemptOrder[| 3] == ATTEMPTORDER.POSSESS))
 	{
-		var aStr;
-		switch(attemptOrder[| i])
+		str += "attempt_order ";
+		for(var i = 0; i < ds_list_size(attemptOrder); i++)
 		{
-			case ATTEMPTORDER.PUSH:    aStr = "push"; break;
-			case ATTEMPTORDER.ENTER:   aStr = "enter"; break;
-			case ATTEMPTORDER.EAT:     aStr = "eat"; break;
-			case ATTEMPTORDER.POSSESS: aStr = "possess"; break;
-		}
-		str += aStr;
-		if (i < ds_list_size(attemptOrder) - 1)
-		{
-			str += ",";
-		}
-		else
-		{
-			str += "\n";
+			var aStr;
+			switch(attemptOrder[| i])
+			{
+				case ATTEMPTORDER.PUSH:    aStr = "push"; break;
+				case ATTEMPTORDER.ENTER:   aStr = "enter"; break;
+				case ATTEMPTORDER.EAT:     aStr = "eat"; break;
+				case ATTEMPTORDER.POSSESS: aStr = "possess"; break;
+			}
+			str += aStr;
+			if (i < ds_list_size(attemptOrder) - 1)
+			{
+				str += ",";
+			}
+			else
+			{
+				str += "\n";
+			}
 		}
 	}
 	
